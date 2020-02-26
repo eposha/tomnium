@@ -1,4 +1,4 @@
-# [Exchange](https://eposha.github.io/tomnium/pages/)
+# [Exchange](https://eposha.github.io/tomnium/)
 
 ### QUICK START
 
