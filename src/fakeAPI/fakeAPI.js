@@ -1,4 +1,4 @@
-async function promise() {
+async function getCurrencies() {
     return {
         "valid": true,
         "timestamp": 1582195447,
@@ -164,4 +164,4 @@ async function promise() {
 }
 
 
-export default promise
+export default getCurrencies
