@@ -6,7 +6,7 @@ const CurrencyList = () => {
   const [currency, setCurrency] = useState({});
 
   useEffect(() => {
-    promise.then(res => setCurrency(res));
+    promise().then(res => setCurrency(res));
   }, []);
 
   let currencyList = [];
