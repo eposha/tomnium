@@ -1,0 +1,29 @@
+image: governmentpaas/git-ssh
+
+stages:
+  - deploy
+
+deploy:
+  stage: deploy
+  tags:
+    - lwi
+  script:
+    - git config --global user.email "account@lab325.com"
+    - git config --global user.name "Lab325"
+    - eval `ssh-agent -s`
+    - mkdir -p /root/.ssh
+    - chmod 700 /root/.ssh
+    - cp $SSH_PRIVATE_KEY /root/.ssh/id_rsa
+    - cp $KNOWN_HOSTS /root/.ssh/known_hosts
+    - chmod 600 /root/.ssh/*
+    - ssh-add /root/.ssh/id_rsa
+    - ssh-agent
+    - ssh-add /root/.ssh/id_rsa
+    - git remote remove origin
+    - git remote add origin $REPOSITORY_URL
+    - git push -f origin HEAD:$CI_COMMIT_BRANCH
+  only:
+    - master
+    - staging
+    - dev
+    - prod

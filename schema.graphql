@@ -1,0 +1,3678 @@
+enum AccessEntity {
+  ACCESS_ENTITY_STATUS_AVAILABLE
+  ACCESS_ENTITY_STATUS_AVAILABLE_BY_SUBSCRIPTION
+  ACCESS_ENTITY_STATUS_CAN_BE_ACTIVATED
+  ACCESS_ENTITY_STATUS_HOLD
+}
+
+enum AccessTask {
+  ACCESS_TASK_RECALCULATE_ALL_USER_ACCESS
+  ACCESS_TASK_RECALCULATE_USER_ACCESS
+}
+
+type Appointment {
+  Consultation: Consultation
+  active: Boolean
+  bookedByMe: Boolean
+  consultationId: String
+  id: Int
+  startAt: Date
+  url: String
+}
+
+enum AppointmentField {
+  APPOINTMENT_FIELD_START_AT
+}
+
+input AppointmentMoveInput {
+  id: Int!
+  targetId: Int!
+}
+
+input AppointmentsFilterInput {
+  consultationId: String
+  startAt: DateRange
+}
+
+input AppointmentsMyFilterInput {
+  consultationId: String!
+}
+
+input AppointmentsSortInput {
+  field: AppointmentField!
+  type: SortType!
+}
+
+type AudioFile {
+  id: String
+  path: String
+}
+
+type Author {
+  avatar: [Media]
+  description: String
+  fullName: String
+  id: String
+  index: Int
+  landingUrl: String
+  regalia: String
+  type: AuthorEntityType
+}
+
+enum AuthorEntityType {
+  AUTHOR_ENTITY_TYPE_CONSULTATION
+  AUTHOR_ENTITY_TYPE_COURSE
+  AUTHOR_ENTITY_TYPE_DOCUMENT
+}
+
+enum AuthorField {
+  AUTHOR_FIELD_INDEX
+}
+
+input AuthorsFilterInput {
+  type: AuthorEntityType
+}
+
+input AuthorsSortInput {
+  field: AuthorField!
+  type: SortType!
+}
+
+type Banner {
+  Sale: Sale
+  description: String
+  id: Int
+  imageMob: [Media]
+  imageWeb: [Media]
+  oldPrice: String
+  price: String
+  subtitle: String
+  title: String
+  titleUrl: String
+  url: String
+}
+
+enum BannerTask {
+  BANNER_TASK_RECALCULATE_USER_BANNERS
+}
+
+type Card {
+  id: String
+  masked: String
+  merchantId: String
+  status: CardStatus
+  type: CardType
+}
+
+enum CardStatus {
+  CARD_STATUS_ACTIVE
+  CARD_STATUS_DELETED
+  CARD_STATUS_MAIN
+}
+
+enum CardType {
+  CARD_TYPE_MAESTRO
+  CARD_TYPE_MASTERCARD
+  CARD_TYPE_VISA
+}
+
+input CategoriesFilterInput {
+  type: CategoryEntityType!
+}
+
+input CategoriesSortInput {
+  field: CategoryField!
+  type: SortType!
+}
+
+type Category {
+  displayName: String
+  id: String
+  index: Int
+  isGeneral: Boolean
+  name: String
+  type: CategoryEntityType
+}
+
+enum CategoryEntityType {
+  CATEGORY_ENTITY_TYPE_CONSULTATION
+  CATEGORY_ENTITY_TYPE_COURSE
+  CATEGORY_ENTITY_TYPE_DOCUMENT
+}
+
+enum CategoryField {
+  CATEGORY_FIELD_INDEX
+}
+
+input CitiesFilterInput {
+  countryId: Int
+  name: String
+  regionId: Int
+}
+
+type CitiesResponse {
+  Cities: [City]
+  Pagination: Pagination
+}
+
+type City {
+  Country: Country
+  Region: Region
+  id: Int
+  name: String
+}
+
+type CmsDepartment {
+  displayName: String
+  id: Int
+}
+
+type CmsRole {
+  displayName: String
+  id: String
+  permissions: GraphQLJSON
+}
+
+enum CmsRoleName {
+  CMS_ROLE_NAME_ADMIN
+  CMS_ROLE_NAME_SUPERADMIN
+}
+
+type CmsUser {
+  CmsDepartment: CmsDepartment
+  CmsRole: CmsRole
+  Language: Language
+  active: Boolean
+  departmentId: Int
+  email: String
+  fullName: String
+  id: String
+  phone: String
+  roleId: String
+  timezone: String
+}
+
+enum CmsUserField {
+  CMS_USER_FIELD_ACTIVE
+  CMS_USER_FIELD_EMAIL
+  CMS_USER_FIELD_FULLNAME
+  CMS_USER_FIELD_PHONE
+}
+
+type Consultation {
+  Appointments: [Appointment]
+  Author: Author
+  Categories: [Category]
+  Consultant: User
+  ConsultationContent: Content
+  ConsultationFeedbacks: [Feedback]
+  Curators: [User]
+  Faq: Faq
+  Languages: [Language]
+  MeetingMethod: MeetingMethod
+  Product: Product
+  Tag: [Tag]
+  beforeBookingDuration: Interval
+  beforeCancelDuration: Interval
+  description: String
+  duration: ConsultationDuration
+  id: String
+  image: [Media]
+  index: Int
+  isFavorite: Boolean
+  label: String
+  productId: String
+  seoDescription: String
+  seoTitle: String
+  slug: String
+  ticketsCount: Int
+  title: String
+}
+
+enum ConsultationDuration {
+  CONSULTATION_DURATION_15M
+  CONSULTATION_DURATION_30M
+  CONSULTATION_DURATION_60M
+}
+
+enum ConsultationField {
+  CONSULTATION_FIELD_INDEX
+}
+
+type ConsultationResponse {
+  Consultations: [Consultation]
+  Pagination: Pagination
+}
+
+input ConsultationsFilterInput {
+  authorIds: [String]
+  categoryIds: [String]
+}
+
+type Content {
+  Language: Language
+  content: GraphQLJSON
+  id: Int
+}
+
+input ContentUpdateInput {
+  content: GraphQLJSON
+  id: Int!
+}
+
+input CountiesFilterInput {
+  code: String
+  name: String
+}
+
+type CountriesResponse {
+  Countries: [Country]
+  Pagination: Pagination
+}
+
+type Country {
+  Regions: [Region]
+  code: String
+  id: Int
+  name: String
+}
+
+type Coupon {
+  code: String
+  id: String
+  multiUse: Boolean
+  name: String
+  saleId: String
+  useCountPerUser: Int
+}
+
+enum CouponField {
+  COUPON_FIELD_CODE
+  COUPON_FIELD_MULTI_USE
+  COUPON_FIELD_USE_COUNT_PER_USER
+}
+
+type Course {
+  Authors: [Author]
+  Categories: [Category]
+  CourseContent: Content
+  CourseEndContent: Content
+  CourseFeedbacks: [Feedback]
+  DefaultThread: Thread
+  Faq: Faq
+  Gifts: [Gift]
+  OwnThread: Thread
+  RecommendedCourses: [Course]
+  Surveys: [Survey]
+  Tags: [Tag]
+  Threads: [Thread]
+  audioDuration: Interval
+  createdAt: Date
+  description: String
+  exclusive: Boolean
+  freeDescription: String
+  freeImage: [Media]
+  freeShow: Boolean
+  freeTitle: String
+  id: String
+  imageList: [Media]
+  imageMob: [Media]
+  imageWeb: [Media]
+  isFavorite: Boolean
+  label: String
+  learnDuration: LearnDuration
+  lessonsCount: Int
+  seoDescription: String
+  seoTitle: String
+  slug: String
+  status: CourseStatus
+  studentsCount: Int
+  title: String
+  totalAudios: Int
+  totalHomeworks: Int
+  totalModules: Int
+  totalTests: Int
+  totalVideos: Int
+  updatedAt: Date
+  usersImages: [[Media]]
+  videoDuration: Interval
+}
+
+enum CourseField {
+  COURSE_FIELD_INDEX
+}
+
+enum CoursePreview {
+  COURSE_PREVIEW_DEFAULT_THREAD
+  COURSE_PREVIEW_OWN_THREAD
+}
+
+enum CourseStatus {
+  COURSE_STATUS_AVAILABLE
+  COURSE_STATUS_COMPLETED
+  COURSE_STATUS_FREE_ACCESS
+  COURSE_STATUS_FULL_ACCESS
+}
+
+type CoursesDescription {
+  description: String
+}
+
+input CoursesFilterInput {
+  categoryIds: [String]
+}
+
+type CoursesResponse {
+  Courses: [Course]
+  Pagination: Pagination
+}
+
+type Currency {
+  code: String
+  id: Int
+  name: String
+}
+
+enum CurrencyName {
+  CURRENCY_NAME_RUB
+  CURRENCY_NAME_UAH
+  CURRENCY_NAME_USD
+}
+
+# Date custom scalar type
+scalar Date
+
+input DateRange {
+  from: Date
+  to: Date
+}
+
+type Document {
+  Author: Author
+  Categories: [Category]
+  Course: Course
+  DocumentContents: [Content]
+  active: Boolean
+  chatCreated: Boolean
+  courseId: String
+  description: String
+  durationLabel: LearnDuration
+  externalVideoUrl: String
+  id: String
+  imageList: [Media]
+  imageMob: [Media]
+  imageWeb: [Media]
+  index: Int
+  isFavorite: Boolean
+  label: String
+  publishDate: Date
+  quizQuestionCount: Int
+  seoDescription: String
+  seoTitle: String
+  startDate: Date
+  studentsCount: Int
+  title: String
+  type: DocumentType
+  url: String
+  usersImages: [[Media]]
+  visibleSince: Date
+  visibleUntil: Date
+}
+
+enum DocumentField {
+  DOCUMENT_FIELD_ACTIVE
+  DOCUMENT_FIELD_CHAT_CREATED
+  DOCUMENT_FIELD_INDEX
+  DOCUMENT_FIELD_START_DATE
+  DOCUMENT_FIELD_TYPE
+  DOCUMENT_FIELD_VISIBLE_SINCE
+  DOCUMENT_FIELD_VISIBLE_UNTIL
+}
+
+type DocumentResponse {
+  Documents: [Document]
+  Pagination: Pagination
+}
+
+enum DocumentType {
+  DOCUMENT_TYPE_ARTICLE
+  DOCUMENT_TYPE_COURSE
+  DOCUMENT_TYPE_EXTERNAL_VIDEO
+  DOCUMENT_TYPE_FILE
+  DOCUMENT_TYPE_LESSON
+  DOCUMENT_TYPE_LIVE
+  DOCUMENT_TYPE_NEWS
+  DOCUMENT_TYPE_WEBINAR
+}
+
+input DocumentsFilterInput {
+  categoryIds: [String]
+  type: [DocumentType]
+}
+
+input DocumentsSortInput {
+  field: DocumentField!
+  type: SortType!
+}
+
+# Duration custom scalar type
+scalar Duration
+
+enum EntityName {
+  ENTITY_NAME_APPOINTMENT
+  ENTITY_NAME_AUDIO
+  ENTITY_NAME_AUDIO_MARK
+  ENTITY_NAME_AUTHOR
+  ENTITY_NAME_BANNER
+  ENTITY_NAME_CATEGORY
+  ENTITY_NAME_CMS_DEPARTMENT
+  ENTITY_NAME_CMS_ROLE
+  ENTITY_NAME_CMS_USER
+  ENTITY_NAME_CONSULTATION
+  ENTITY_NAME_CONSULTATION_CONTENT
+  ENTITY_NAME_CONSULTATION_FEEDBACK
+  ENTITY_NAME_COUPON
+  ENTITY_NAME_COURSE
+  ENTITY_NAME_COURSE_CONTENT
+  ENTITY_NAME_COURSE_END_CONTENT
+  ENTITY_NAME_COURSE_FEEDBACK
+  ENTITY_NAME_COURSE_TYPE
+  ENTITY_NAME_CURRENCY
+  ENTITY_NAME_DEPARTMENT
+  ENTITY_NAME_DOCUMENT
+  ENTITY_NAME_DOCUMENT_CONTENT
+  ENTITY_NAME_FAQ
+  ENTITY_NAME_FAQ_OPTION
+  ENTITY_NAME_FAVORITE
+  ENTITY_NAME_FILE
+  ENTITY_NAME_GIFT
+  ENTITY_NAME_GIFT_CONTENT
+  ENTITY_NAME_HOMEWORK
+  ENTITY_NAME_HOMEWORK_CONTENT
+  ENTITY_NAME_HOMEWORK_FLUENT_CONTENT
+  ENTITY_NAME_HOMEWORK_QUESTION_OPTION
+  ENTITY_NAME_HOMEWORK_RESULT
+  ENTITY_NAME_HOMEWORK_TASK
+  ENTITY_NAME_HOMEWORK_TEST_QUESTION
+  ENTITY_NAME_HOMEWORK_TEST_QUESTION_CONTENT
+  ENTITY_NAME_HOMEWORK_TEST_QUESTION_OPTION
+  ENTITY_NAME_IMAGE
+  ENTITY_NAME_LANGUAGE
+  ENTITY_NAME_LESSON
+  ENTITY_NAME_LESSON_CONTENT
+  ENTITY_NAME_MEETING_METHOD
+  ENTITY_NAME_MERCHANT
+  ENTITY_NAME_MESSAGE
+  ENTITY_NAME_MODULE
+  ENTITY_NAME_MODULE_CONTENT
+  ENTITY_NAME_ORDER
+  ENTITY_NAME_PAGE
+  ENTITY_NAME_PAYMENT_METHOD
+  ENTITY_NAME_PAYMENT_SYSTEM
+  ENTITY_NAME_PLAN
+  ENTITY_NAME_PRICE_LIST
+  ENTITY_NAME_PRICE_LIST_OPTION
+  ENTITY_NAME_PRICE_LIST_PROPERTY
+  ENTITY_NAME_PRODUCT
+  ENTITY_NAME_PRODUCT_META
+  ENTITY_NAME_PROFILE
+  ENTITY_NAME_PURCHASE
+  ENTITY_NAME_QUIZ
+  ENTITY_NAME_QUIZ_CONTENT
+  ENTITY_NAME_QUIZ_QUESTION
+  ENTITY_NAME_QUIZ_QUESTION_CONTENT
+  ENTITY_NAME_QUIZ_QUESTION_OPTION
+  ENTITY_NAME_QUIZ_QUESTION_OPTION_QUIZ_QUESTION
+  ENTITY_NAME_ROOM
+  ENTITY_NAME_SALE
+  ENTITY_NAME_SALE_CONTENT
+  ENTITY_NAME_SURVEY
+  ENTITY_NAME_SURVEY_OPTION
+  ENTITY_NAME_SURVEY_QUESTION
+  ENTITY_NAME_TAG
+  ENTITY_NAME_TERM
+  ENTITY_NAME_THREAD
+  ENTITY_NAME_THREAD_CONTENT
+  ENTITY_NAME_TICKET
+  ENTITY_NAME_TILDA_PAGE
+  ENTITY_NAME_TILDA_PROJECT
+  ENTITY_NAME_TRANSACTION
+  ENTITY_NAME_USER
+  ENTITY_NAME_USER_VIDEO_MARK
+  ENTITY_NAME_VIDEO
+  ENTITY_NAME_VIDEO_MARK
+  ENTITY_NAME_VIDEO_SUBTITLE
+}
+
+type Enums {
+  AuthorEntityType: [enumPoint]
+  CategoryEntityType: [enumPoint]
+  CmsUserField: [enumPoint]
+  ConsultationDuration: [enumPoint]
+  CouponField: [enumPoint]
+  DocumentField: [enumPoint]
+  DocumentType: [enumPoint]
+  EntityName: [enumPoint]
+  FavoriteTarget: [enumPoint]
+  GiftEntityType: [enumPoint]
+  GraphQlSubscriptionType: [enumPoint]
+  HomeworkType: [enumPoint]
+  MessageAvatarTheme: [enumPoint]
+  MessageTheme: [enumPoint]
+  MessageType: [enumPoint]
+  PgJobState: [enumPoint]
+  PriceListPropertyType: [enumPoint]
+  PurchaseStatus: [enumPoint]
+  QuizQuestionType: [enumPoint]
+  QuizType: [enumPoint]
+  SaleType: [enumPoint]
+  SortType: [enumPoint]
+  SurveyQuestionType: [enumPoint]
+}
+
+enum EventName {
+  EVENT_NAME_ACCEPT_TERM
+  EVENT_NAME_APPOINTMENT_BOOK
+  EVENT_NAME_APPOINTMENT_BOOK_MOVE
+  EVENT_NAME_APPOINTMENT_CANCEL
+  EVENT_NAME_APPOINTMENT_CONSULTATION_START_AFTER_DAY
+  EVENT_NAME_APPOINTMENT_CONSULTATION_START_AFTER_HALF_AN_HOUR
+  EVENT_NAME_APPOINTMENT_CREATE
+  EVENT_NAME_APPOINTMENT_DELETE
+  EVENT_NAME_APPOINTMENT_UPDATE
+  EVENT_NAME_APPOINTMENT_URL_UPDATE
+  EVENT_NAME_AUDIO_CREATE
+  EVENT_NAME_AUDIO_DELETE
+  EVENT_NAME_AUDIO_MARK_CREATE
+  EVENT_NAME_AUDIO_MARK_DELETE
+  EVENT_NAME_AUDIO_UPDATE
+  EVENT_NAME_AUTHOR_CREATE
+  EVENT_NAME_AUTHOR_DELETE
+  EVENT_NAME_AUTHOR_UPDATE
+  EVENT_NAME_AVAILABLE_LESSON
+  EVENT_NAME_AVAILABLE_MODULE
+  EVENT_NAME_BANNER_CREATE
+  EVENT_NAME_BANNER_DELETE
+  EVENT_NAME_BANNER_UPDATE
+  EVENT_NAME_CATEGORY_CREATE
+  EVENT_NAME_CATEGORY_DELETE
+  EVENT_NAME_CATEGORY_UPDATE
+  EVENT_NAME_CMS_DEPARTMENT_CREATE
+  EVENT_NAME_CMS_DEPARTMENT_DELETE
+  EVENT_NAME_CMS_DEPARTMENT_UPDATE
+  EVENT_NAME_CMS_ROLE_CREATE
+  EVENT_NAME_CMS_ROLE_DELETE
+  EVENT_NAME_CMS_ROLE_UPDATE
+  EVENT_NAME_CMS_USER_CREATE
+  EVENT_NAME_CMS_USER_DELETE
+  EVENT_NAME_CMS_USER_LOGIN
+  EVENT_NAME_CMS_USER_PASSWORD_CHANGE
+  EVENT_NAME_CMS_USER_PASSWORD_FORGOT_CONFIRM
+  EVENT_NAME_CMS_USER_PASSWORD_FORGOT_REQUEST
+  EVENT_NAME_CMS_USER_UPDATE
+  EVENT_NAME_CMS_USER_USER_LOGIN
+  EVENT_NAME_CONSULTATION_AVAILABLE
+  EVENT_NAME_CONSULTATION_CONTENT_CREATE
+  EVENT_NAME_CONSULTATION_CONTENT_DELETE
+  EVENT_NAME_CONSULTATION_CONTENT_UPDATE
+  EVENT_NAME_CONSULTATION_CREATE
+  EVENT_NAME_CONSULTATION_DELETE
+  EVENT_NAME_CONSULTATION_DUPLICATE
+  EVENT_NAME_CONSULTATION_FEEDBACK_CREATE
+  EVENT_NAME_CONSULTATION_FEEDBACK_DELETE
+  EVENT_NAME_CONSULTATION_FEEDBACK_UPDATE
+  EVENT_NAME_CONSULTATION_UPDATE
+  EVENT_NAME_COUPON_CREATE
+  EVENT_NAME_COUPON_DELETE
+  EVENT_NAME_COUPON_GENERATE
+  EVENT_NAME_COUPON_UPDATE
+  EVENT_NAME_COURSE_CONTENT_CREATE
+  EVENT_NAME_COURSE_CONTENT_DELETE
+  EVENT_NAME_COURSE_CONTENT_UPDATE
+  EVENT_NAME_COURSE_CREATE
+  EVENT_NAME_COURSE_DELETE
+  EVENT_NAME_COURSE_DUPLICATE
+  EVENT_NAME_COURSE_END_CONTENT_CREATE
+  EVENT_NAME_COURSE_END_CONTENT_DELETE
+  EVENT_NAME_COURSE_END_CONTENT_UPDATE
+  EVENT_NAME_COURSE_FEEDBACK_CREATE
+  EVENT_NAME_COURSE_FEEDBACK_DELETE
+  EVENT_NAME_COURSE_FEEDBACK_UPDATE
+  EVENT_NAME_COURSE_TYPE_CREATE
+  EVENT_NAME_COURSE_TYPE_DELETE
+  EVENT_NAME_COURSE_TYPE_UPDATE
+  EVENT_NAME_COURSE_UPDATE
+  EVENT_NAME_CURRENCY_CREATE
+  EVENT_NAME_CURRENCY_UPDATE
+  EVENT_NAME_DOCUMENT_CONTENT_CREATE
+  EVENT_NAME_DOCUMENT_CONTENT_DELETE
+  EVENT_NAME_DOCUMENT_CONTENT_UPDATE
+  EVENT_NAME_DOCUMENT_CREATE
+  EVENT_NAME_DOCUMENT_DELETE
+  EVENT_NAME_DOCUMENT_DUPLICATE
+  EVENT_NAME_DOCUMENT_UPDATE
+  EVENT_NAME_FAQ_CREATE
+  EVENT_NAME_FAQ_DELETE
+  EVENT_NAME_FAQ_OPTION_CREATE
+  EVENT_NAME_FAQ_OPTION_DELETE
+  EVENT_NAME_FAQ_OPTION_UPDATE
+  EVENT_NAME_FAQ_UPDATE
+  EVENT_NAME_FAVORITE_CREATE
+  EVENT_NAME_FAVORITE_DELETE
+  EVENT_NAME_FILE_CREATE
+  EVENT_NAME_FILE_DELETE
+  EVENT_NAME_GIFT_CONTENT_CREATE
+  EVENT_NAME_GIFT_CONTENT_DELETE
+  EVENT_NAME_GIFT_CONTENT_UPDATE
+  EVENT_NAME_GIFT_CREATE
+  EVENT_NAME_GIFT_DELETE
+  EVENT_NAME_GIFT_DUPLICATE
+  EVENT_NAME_GIFT_UPDATE
+  EVENT_NAME_HOMEWORK_CONTENT_CREATE
+  EVENT_NAME_HOMEWORK_CONTENT_DELETE
+  EVENT_NAME_HOMEWORK_CONTENT_UPDATE
+  EVENT_NAME_HOMEWORK_CREATE
+  EVENT_NAME_HOMEWORK_DELETE
+  EVENT_NAME_HOMEWORK_DUPLICATE
+  EVENT_NAME_HOMEWORK_FLUENT_CONTENT_CREATE
+  EVENT_NAME_HOMEWORK_FLUENT_CONTENT_DELETE
+  EVENT_NAME_HOMEWORK_FLUENT_CONTENT_UPDATE
+  EVENT_NAME_HOMEWORK_FLUENT_SCORE
+  EVENT_NAME_HOMEWORK_RESULT_CREATE
+  EVENT_NAME_HOMEWORK_RESULT_DELETE
+  EVENT_NAME_HOMEWORK_RESULT_UPDATE
+  EVENT_NAME_HOMEWORK_TEST_QUESTION_CONTENT_CREATE
+  EVENT_NAME_HOMEWORK_TEST_QUESTION_CONTENT_DELETE
+  EVENT_NAME_HOMEWORK_TEST_QUESTION_CONTENT_UPDATE
+  EVENT_NAME_HOMEWORK_UPDATE
+  EVENT_NAME_IMAGE_CREATE
+  EVENT_NAME_IMAGE_DELETE
+  EVENT_NAME_IMAGE_UPDATE
+  EVENT_NAME_INDEX_CHANGE
+  EVENT_NAME_INITIATOR_CMS_USER
+  EVENT_NAME_INITIATOR_COMMON_USER
+  EVENT_NAME_LANGUAGE_CREATE
+  EVENT_NAME_LANGUAGE_UPDATE
+  EVENT_NAME_LESSON_CONTENT_CREATE
+  EVENT_NAME_LESSON_CONTENT_DELETE
+  EVENT_NAME_LESSON_CONTENT_UPDATE
+  EVENT_NAME_LESSON_CREATE
+  EVENT_NAME_LESSON_DELETE
+  EVENT_NAME_LESSON_DONE
+  EVENT_NAME_LESSON_DUPLICATE
+  EVENT_NAME_LESSON_UPDATE
+  EVENT_NAME_MEETING_METHOD_CREATE
+  EVENT_NAME_MEETING_METHOD_DELETE
+  EVENT_NAME_MEETING_METHOD_UPDATE
+  EVENT_NAME_MERCHANT_CREATE
+  EVENT_NAME_MERCHANT_UPDATE
+  EVENT_NAME_MODULE_CONTENT_CREATE
+  EVENT_NAME_MODULE_CONTENT_DELETE
+  EVENT_NAME_MODULE_CONTENT_UPDATE
+  EVENT_NAME_MODULE_CREATE
+  EVENT_NAME_MODULE_DELETE
+  EVENT_NAME_MODULE_DONE
+  EVENT_NAME_MODULE_DUPLICATE
+  EVENT_NAME_MODULE_UPDATE
+  EVENT_NAME_NEW_THREAD_IN_COURSE
+  EVENT_NAME_ORDER_CHECK
+  EVENT_NAME_ORDER_CREATE
+  EVENT_NAME_ORDER_ERROR
+  EVENT_NAME_ORDER_SUCCESS
+  EVENT_NAME_PAGE_CREATE
+  EVENT_NAME_PAGE_DELETE
+  EVENT_NAME_PAGE_UPDATE
+  EVENT_NAME_PAYMENT_METHOD_UPDATE
+  EVENT_NAME_PAYMENT_SYSTEM_UPDATE
+  EVENT_NAME_PLAN_CREATE
+  EVENT_NAME_PLAN_DUPLICATE
+  EVENT_NAME_PLAN_UPDATE
+  EVENT_NAME_PRICE_LIST_CREATE
+  EVENT_NAME_PRICE_LIST_DELETE
+  EVENT_NAME_PRICE_LIST_OPTION_CREATE
+  EVENT_NAME_PRICE_LIST_OPTION_DELETE
+  EVENT_NAME_PRICE_LIST_OPTION_UPDATE
+  EVENT_NAME_PRICE_LIST_PROPERTY_CREATE
+  EVENT_NAME_PRICE_LIST_PROPERTY_DELETE
+  EVENT_NAME_PRICE_LIST_PROPERTY_UPDATE
+  EVENT_NAME_PRICE_LIST_UPDATE
+  EVENT_NAME_PRODUCT_META_CREATE
+  EVENT_NAME_PRODUCT_META_UPDATE
+  EVENT_NAME_PRODUCT_UPDATE
+  EVENT_NAME_PRODUCT_UPGRADE
+  EVENT_NAME_PROFILE_UPDATE
+  EVENT_NAME_PURCHASE_USE
+  EVENT_NAME_QUIZ_CONTENT_CREATE
+  EVENT_NAME_QUIZ_CONTENT_DELETE
+  EVENT_NAME_QUIZ_CONTENT_UPDATE
+  EVENT_NAME_QUIZ_CREATE
+  EVENT_NAME_QUIZ_DELETE
+  EVENT_NAME_QUIZ_QUESTION_CONTENT_CREATE
+  EVENT_NAME_QUIZ_QUESTION_CONTENT_DELETE
+  EVENT_NAME_QUIZ_QUESTION_CONTENT_UPDATE
+  EVENT_NAME_QUIZ_QUESTION_CREATE
+  EVENT_NAME_QUIZ_QUESTION_DELETE
+  EVENT_NAME_QUIZ_QUESTION_UPDATE
+  EVENT_NAME_QUIZ_UPDATE
+  EVENT_NAME_REGISTRATION
+  EVENT_NAME_ROOM_NEW_MESSAGE
+  EVENT_NAME_ROOM_NEW_MESSAGE_FROM_CURATOR
+  EVENT_NAME_ROOM_REPLY_TO_MESSAGE
+  EVENT_NAME_ROOM_USER_BAN
+  EVENT_NAME_ROOM_USER_UNBAN
+  EVENT_NAME_SALE_CONTENT_CREATE
+  EVENT_NAME_SALE_CONTENT_DELETE
+  EVENT_NAME_SALE_CONTENT_UPDATE
+  EVENT_NAME_SALE_CREATE
+  EVENT_NAME_SALE_DELETE
+  EVENT_NAME_SALE_UPDATE
+  EVENT_NAME_SURVEY_CREATE
+  EVENT_NAME_SURVEY_DELETE
+  EVENT_NAME_SURVEY_DUPLICATE
+  EVENT_NAME_SURVEY_UPDATE
+  EVENT_NAME_TAG_CREATE
+  EVENT_NAME_TAG_DELETE
+  EVENT_NAME_TAG_UPDATE
+  EVENT_NAME_THREAD_CHANGED_BY_USER
+  EVENT_NAME_THREAD_CONTENT_CREATE
+  EVENT_NAME_THREAD_CONTENT_DELETE
+  EVENT_NAME_THREAD_CONTENT_UPDATE
+  EVENT_NAME_THREAD_CREATE
+  EVENT_NAME_THREAD_DONE_BY_USER
+  EVENT_NAME_THREAD_DUPLICATE
+  EVENT_NAME_THREAD_FREE_ACTIVATED_BY_USER
+  EVENT_NAME_THREAD_LEAVE_BY_USER
+  EVENT_NAME_THREAD_UPDATE
+  EVENT_NAME_TICKET_CREATE
+  EVENT_NAME_TICKET_UPDATE
+  EVENT_NAME_TILDA_PAGE_CREATE
+  EVENT_NAME_TILDA_PAGE_UPDATE
+  EVENT_NAME_TILDA_PROJECTS_UPDATE
+  EVENT_NAME_TRANSACTION
+  EVENT_NAME_UNPAID_ORDER
+  EVENT_NAME_USER_CREATE
+  EVENT_NAME_USER_DELETE
+  EVENT_NAME_USER_DELETE_AVATAR
+  EVENT_NAME_USER_GENERATE
+  EVENT_NAME_USER_JOINED_TO_THREAD
+  EVENT_NAME_USER_JOIN_ROOM
+  EVENT_NAME_USER_LOGIN
+  EVENT_NAME_USER_ME
+  EVENT_NAME_USER_PASSWORD_CHANGE
+  EVENT_NAME_USER_PASSWORD_FORGOT_CONFIRM
+  EVENT_NAME_USER_PASSWORD_FORGOT_REQUEST
+  EVENT_NAME_USER_THREAD_CHANGE
+  EVENT_NAME_USER_THREAD_DONE
+  EVENT_NAME_USER_THREAD_FREE_ACTIVATE
+  EVENT_NAME_USER_THREAD_LEAVE
+  EVENT_NAME_USER_THREAD_PLAN_ACTIVATE
+  EVENT_NAME_USER_TRIAL_ACTIVATE
+  EVENT_NAME_USER_UPDATE
+  EVENT_NAME_USER_UPDATE_ME
+  EVENT_NAME_USER_VIDEO_MARK_CREATE
+  EVENT_NAME_USER_VIDEO_MARK_DELETE
+  EVENT_NAME_USER_VIDEO_MARK_UPDATE
+  EVENT_NAME_VIDEO_CREATE
+  EVENT_NAME_VIDEO_DELETE
+  EVENT_NAME_VIDEO_MARK_CREATE
+  EVENT_NAME_VIDEO_MARK_DELETE
+  EVENT_NAME_VIDEO_SUBTITLES_CREATE
+  EVENT_NAME_VIDEO_SUBTITLES_DELETE
+  EVENT_NAME_VIDEO_UPDATE
+}
+
+enum EventType {
+  EVENT_NAME_COURSE_TYPE_CREATE
+  EVENT_NAME_COURSE_TYPE_DELETE
+  EVENT_NAME_COURSE_TYPE_UPDATE
+}
+
+type FAAppointment {
+  Consultation: Consultation
+  User: User
+  active: Boolean
+  consultationId: String
+  id: Int
+  startAt: Date
+  url: String
+}
+
+type FAAudio {
+  AudioFile: AudioFile
+  AudioMarks: [Mark]
+  Subtitles: [Subtitle]
+  createdAt: Date
+  description: String
+  id: String
+  redirectUrl: String
+  title: String
+  updatedAt: Date
+}
+
+type FAAuthor {
+  avatar: [Media]
+  description: MultiLanguage
+  fullName: MultiLanguage
+  id: String
+  index: Int
+  landingUrl: String
+  regalia: MultiLanguage
+  type: AuthorEntityType
+}
+
+type FAAuthorTranslate {
+  avatar: [Media]
+  description: String
+  fullName: String
+  id: String
+  index: Int
+  landingUrl: String
+  regalia: String
+  type: AuthorEntityType
+}
+
+type FABanner {
+  Sale: FASale
+  createdAt: Date
+  description: MultiLanguage
+  id: Int
+  imageMob: [Media]
+  imageWeb: [Media]
+  oldPrice: String
+  price: String
+  subtitle: MultiLanguage
+  title: MultiLanguage
+  titleUrl: String
+  updatedAt: Date
+  url: String
+}
+
+type FACard {
+  User: User
+  id: String
+  masked: String
+  merchantId: String
+  status: CardStatus
+  type: CardType
+}
+
+type FACategory {
+  displayName: MultiLanguage
+  id: String
+  index: Int
+  isGeneral: Boolean
+  name: String
+  slug: String
+  type: CategoryEntityType
+}
+
+type FACategoryTranslate {
+  displayName: String
+  id: String
+  index: Int
+  isGeneral: Boolean
+  name: String
+  slug: String
+  type: CategoryEntityType
+}
+
+type FAConsultation {
+  Author: FAAuthor
+  Categories: [FACategory]
+  Consultant: User
+  ConsultationContents: [Content]
+  ConsultationFeedbacks: [FAFeedback]
+  Curators: [User]
+  Faq: FAFaq
+  Languages: [FALanguage]
+  MeetingMethod: MeetingMethod
+  Product: FAProduct
+  Tags: [Tag]
+  active: Boolean
+  beforeBookingDuration: Interval
+  beforeCancelDuration: Interval
+  defaultUrl: String
+  description: MultiLanguage
+  duration: ConsultationDuration!
+  id: String
+  image: [Media]
+  index: Int
+  label: MultiLanguage
+  seoDescription: String
+  seoTitle: String
+  slug: String
+  title: MultiLanguage
+  zohoProductId: String
+}
+
+type FAConsultationTranslate {
+  Author: FAAuthorTranslate
+  Categories: [FACategoryTranslate]
+  Consultant: User
+  ConsultationContents: [Content]
+  ConsultationFeedbacks: [FAFeedback]
+  Curators: [User]
+  Languages: [FALanguage]
+  MeetingMethod: MeetingMethod
+  Product: FAProductTranslate
+  Tags: [Tag]
+  active: Boolean
+  beforeBookingDuration: Interval
+  beforeCancelDuration: Interval
+  defaultUrl: String
+  deletedAt: Date
+  description: String
+  duration: ConsultationDuration!
+  hasAppointment: Boolean
+  id: String
+  index: Int
+  label: String
+  seoDescription: String
+  seoTitle: String
+  slug: String
+  title: String
+}
+
+type FACourse {
+  Authors: [FAAuthor]
+  Categories: [FACategory]
+  CourseContents: [Content]
+  CourseEndContents: [Content]
+  CourseFeedbacks: [FAFeedback]
+  Faq: FAFaq
+  Gifts: [FAGift]
+  Modules: [FAModule]
+  Product: FAProduct
+  RecommendedCourses: [FACourse]
+  Survey: FASurvey
+  Tags: [Tag]
+  active: Boolean
+  audioDuration: Interval
+  createdAt: Date
+  description: MultiLanguage
+  exclusive: Boolean
+  freeDescription: MultiLanguage
+  freeImage: [Media]
+  freeModuleCount: Int
+  freeShow: Boolean
+  freeTitle: MultiLanguage
+  homeworksCount: Int
+  id: String
+  imageList: [Media]
+  imageMob: [Media]
+  imageWeb: [Media]
+  index: Int
+  initStudentsCount: Int
+  label: MultiLanguage
+  learnDuration: LearnDuration
+  lessonsCount: Int
+  modulesCount: Int
+  published: Boolean
+  publishedThreadsCount: Int
+  realStudentsCount: Int
+  seoDescription: String
+  seoTitle: String
+  slug: String
+  studentsCount: Int
+  threadsCount: Int
+  title: MultiLanguage
+  totalAudios: Int
+  totalVideos: Int
+  updatedAt: Date
+  videoDuration: Interval
+}
+
+type FACourseTranslate {
+  Authors: [FAAuthorTranslate]
+  Categories: [FACategoryTranslate]
+  CourseContents: [Content]
+  CourseEndContents: [Content]
+  Gifts: [FAGiftTranslate]
+  Modules: [FAModuleTranslate]
+  Survey: FASurveyTranslate
+  Tags: [Tag]
+  active: Boolean
+  audioDuration: Interval
+  createdAt: Date
+  description: String
+  exclusive: Boolean
+  freeDescription: String
+  freeImage: [Media]
+  freeModuleCount: Int
+  freeShow: Boolean
+  freeTitle: String
+  homeworksCount: Int
+  id: String
+  index: Int
+  initStudentsCount: Int
+  label: String
+  learnDuration: LearnDuration
+  lessonsCount: Int
+  modulesCount: Int
+  published: Boolean
+  publishedThreadsCount: Int
+  realStudentsCount: Int
+  seoDescription: String
+  seoTitle: String
+  slug: String
+  studentsCount: Int
+  studentsFeedback: GraphQLJSON
+  threadsCount: Int
+  title: String
+  totalAudios: Int
+  totalVideos: Int
+  updatedAt: Date
+  videoDuration: Interval
+}
+
+type FACurrency {
+  active: Boolean
+  code: String
+  createdAt: Date
+  default: Boolean
+  exchangeRate: Float
+  name: String
+  updatedAt: Date
+}
+
+type FADocument {
+  Author: FAAuthor
+  Categories: [FACategory]
+  Course: FACourse
+  DocumentContents: [Content]
+  active: Boolean
+  chatCreated: Boolean
+  description: MultiLanguage
+  durationLabel: LearnDuration
+  externalVideoUrl: String
+  id: String
+  imageList: [Media]
+  imageMob: [Media]
+  imageWeb: [Media]
+  index: Int
+  initStudentsCount: Int
+  label: MultiLanguage
+  publishDate: Date
+  quizQuestionCount: Int
+  realStudentsCount: Int
+  seoDescription: String
+  seoTitle: String
+  startDate: Date
+  studentsCount: Int
+  title: MultiLanguage
+  type: DocumentType
+  url: String
+  usersImages: [[Media]]
+  visibleSince: Date
+  visibleUntil: Date
+}
+
+type FADocumentTranslate {
+  Author: FAAuthorTranslate
+  Categories: [FACategoryTranslate]
+  Course: FACourseTranslate
+  DocumentContents: [Content]
+  active: Boolean
+  chatCreated: Boolean
+  description: String
+  durationLabel: LearnDuration
+  externalVideoUrl: String
+  id: String
+  index: Int
+  label: String
+  publishDate: Date
+  quizQuestionCount: Int
+  seoDescription: String
+  seoTitle: String
+  startDate: Date
+  title: String
+  type: DocumentType
+  url: String
+  visibleSince: Date
+  visibleUntil: Date
+}
+
+type FAFaq {
+  FaqOptions: [FAFaqOption]
+  id: Int
+  title: String
+}
+
+type FAFaqOption {
+  body: MultiLanguage
+  id: Int
+  index: Int
+  title: MultiLanguage
+}
+
+type FAFeedback {
+  avatar: [Media]
+  fullName: String
+  id: Int
+  regalia: MultiLanguage
+  text: String
+}
+
+type FAGift {
+  Document: FADocument
+  GiftContents: [Content]
+  Tariff: FATariff
+  active: Boolean
+  description: MultiLanguage
+  id: String
+  index: Int
+  isReusable: Boolean
+  title: MultiLanguage
+  type: GiftEntityType
+}
+
+type FAGiftTranslate {
+  Document: FADocumentTranslate
+  GiftContents: [Content]
+  Tariff: FATariff
+  active: Boolean
+  description: String
+  id: String
+  index: Int
+  title: String
+  type: GiftEntityType
+}
+
+type FAHomework {
+  HomeworkContents: [Content]
+  HomeworkFluentContents: [Content]
+  HomeworkTasks: [FAHomeworkTask]
+  HomeworkTestQuestions: [FAHomeworkTestQuestion]
+  Lesson: FALesson
+  Module: FAModule
+  createdAt: Date
+  description: MultiLanguage
+  id: String
+  index: Int
+  maxScore: Int
+  title: MultiLanguage
+  type: HomeworkType
+  updatedAt: Date
+}
+
+type FAHomeworkTask {
+  id: Int
+  index: Int
+  rate: Int
+  title: MultiLanguage
+}
+
+type FAHomeworkTestQuestion {
+  HomeworkTestQuestionContents: [Content]
+  HomeworkTestQuestionOptions: [FAHomeworkTestQuestionOption]
+  id: Int
+  index: Int
+  rate: Int
+  title: MultiLanguage
+  type: HomeworkQuestionType
+}
+
+type FAHomeworkTestQuestionOption {
+  clarification: MultiLanguage
+  id: Int
+  index: Int
+  questionId: Int
+  right: Boolean
+  title: MultiLanguage
+}
+
+type FAHomeworkTranslate {
+  HomeworkContents: [Content]
+  HomeworkTasks: [FAHomeworkTask]
+  HomeworkTestQuestions: [FAHomeworkTestQuestion]
+  Lesson: FALessonTranslate
+  Module: FAModuleTranslate
+  createdAt: Date
+  description: String
+  id: String
+  index: Int
+  title: String
+  type: HomeworkType
+  updatedAt: Date
+}
+
+type FALanguage {
+  code: String
+  id: Int
+  index: Int
+  name: String
+  nativeName: String
+}
+
+type FALesson {
+  Author: FAAuthor
+  Homework: [FAHomework]
+  LessonContents: [Content]
+  Module: FAModule
+  active: Boolean
+  availabilityDate: Date
+  availableByDate: Boolean
+  availableByPrevCompleted: Boolean
+  createdAt: Date
+  description: MultiLanguage
+  id: String
+  index: Int
+  rate: Float
+  slug: String
+  title: MultiLanguage
+  updatedAt: Date
+}
+
+type FALessonTranslate {
+  Author: FAAuthor
+  Homework: [FAHomeworkTranslate]
+  LessonContents: [Content]
+  Module: FAModule
+  active: Boolean
+  availabilityDate: Date
+  availableByDate: Boolean
+  availableByPrevCompleted: Boolean
+  createdAt: Date
+  description: String
+  id: String
+  index: Int
+  slug: String
+  title: String
+  updatedAt: Date
+}
+
+type FAMerchant {
+  PaymentSystem: FAPaymentSystem
+  displayName: String
+  externalId: String
+  id: String
+  meta: MerchantMeta
+  residentOfUkraine: Boolean
+}
+
+type FAModule {
+  Homework: [FAHomework]
+  Lessons: [FALesson]
+  ModuleContents: [Content]
+  active: Boolean
+  availabilityDate: Date
+  availableByDate: Boolean
+  availableByPrevCompleted: Boolean
+  courseId: String
+  description: MultiLanguage
+  homeworksCount: Int
+  id: String
+  index: Int
+  isFree: Boolean
+  lessonsCount: Int
+  rate: Float
+  root: Boolean
+  slug: String
+  threadId: String
+  title: MultiLanguage
+}
+
+type FAModuleTranslate {
+  Homework: [FAHomeworkTranslate]
+  Lessons: [FALessonTranslate]
+  ModuleContents: [Content]
+  active: Boolean
+  availabilityDate: Date
+  availableByDate: Boolean
+  availableByPrevCompleted: Boolean
+  courseId: String
+  description: String
+  homeworksCount: Int
+  id: String
+  index: Int
+  isFree: Boolean
+  lessonsCount: Int
+  root: Boolean
+  slug: String
+  threadId: String
+  title: String
+}
+
+type FAOrder {
+  Merchant: FAMerchant
+  Owner: User
+  Payer: User
+  Products: [FAProduct]
+  createdAt: Date
+  id: String
+  paid: Boolean
+  paidDate: Date
+  price: Int
+}
+
+type FAOrderTranslate {
+  Merchant: FAMerchant
+  Owner: User
+  Payer: User
+  Products: [FAProductTranslate]
+  createdAt: Date
+  id: String
+  paid: Boolean
+  paidDate: Date
+  price: Int
+}
+
+type FAPaymentMethod {
+  DefaultMerchant: FAMerchant
+  Faq: FAFaq
+  GlobalMerchant: FAMerchant
+  displayName: MultiLanguage
+  id: Int
+  index: Int
+}
+
+type FAPaymentSystem {
+  Merchants: [FAMerchant]
+  displayName: String
+  id: String
+}
+
+type FAPlan {
+  Product: FAProduct
+  active: Boolean
+  description: MultiLanguage
+  duePeriod: Int
+  duration: Duration
+  id: String
+  imageMob: [Media]
+  imageWeb: [Media]
+  index: Int
+  infinity: Boolean
+  landingUrl: String
+  lifetime: Boolean
+  productId: String
+  shortTitle: MultiLanguage
+  title: MultiLanguage
+  trialPeriod: Int
+}
+
+type FAPlanTranslate {
+  Product: FAProductTranslate
+  active: Boolean
+  description: String
+  duePeriod: Int
+  duration: Duration
+  id: String
+  imageMob: [Media]
+  imageWeb: [Media]
+  index: Int
+  infinity: Boolean
+  landingUrl: String
+  lifetime: Boolean
+  productId: String
+  shortTitle: String
+  title: String
+  trialPeriod: Int
+}
+
+type FAPriceList {
+  Product: FAProduct
+  Sale: FASale
+  Tariff: FATariff
+  id: Int
+  isActive: Boolean
+  isHighlight: Boolean
+  title: MultiLanguage
+}
+
+type FAPriceListOption {
+  PriceListProperties: [FAPriceListProperty]
+  id: Int
+  index: Int
+  isActive: Boolean
+  name: String
+  title: MultiLanguage
+}
+
+type FAPriceListOptionTranslate {
+  PriceListProperties: [FAPriceListPropertyTranslate]
+  id: Int
+  index: Int
+  isActive: Boolean
+  name: String
+  title: String
+}
+
+type FAPriceListProperty {
+  PriceList: FAPriceList
+  PriceListOption: FAPriceListOption
+  boolValue: Boolean
+  id: Int
+  index: Int
+  stringValue: MultiLanguage
+  type: PriceListPropertyType
+}
+
+type FAPriceListPropertyTranslate {
+  PriceList: FAPriceListTranslate
+  PriceListOption: FAPriceListOptionTranslate
+  boolValue: Boolean
+  id: Int
+  index: Int
+  stringValue: String
+  type: PriceListPropertyType
+}
+
+type FAPriceListTranslate {
+  Product: FAProductTranslate
+  Sale: FASale
+  Tariff: FATariff
+  id: Int
+  isActive: Boolean
+  isHighlight: Boolean
+  title: String
+}
+
+type FAProduct {
+  Consultation: FAConsultation
+  Course: FACourse
+  Faq: FAFaq
+  Merchant: FAMerchant
+  Plan: FAPlan
+  Tariffs: [FATariff]
+  Thread: FAThread
+  availableBySubscription: Boolean
+  availableDuration: Duration
+  description: MultiLanguage
+  forSale: Boolean
+  id: String
+  imageMob: [Media]
+  imageWeb: [Media]
+  landingUrl: String
+  oldPrice: Int
+  price: Int
+  productMeta: GraphQLJSON
+  title: MultiLanguage
+}
+
+type FAProductTranslate {
+  Consultation: FAConsultationTranslate
+  Course: FACourseTranslate
+  Plan: FAPlanTranslate
+  Thread: FAThreadTranslate
+  availableDuration: Duration
+  description: String
+  forSale: Boolean
+  id: String
+  imageMob: [Media]
+  imageWeb: [Media]
+  landingUrl: String
+  oldPrice: Int
+  price: Int
+  productMeta: GraphQLJSON
+  title: String
+}
+
+type FAPurchase {
+  Order: FAOrderTranslate
+  Product: Product
+  Tariff: Tariff
+  User: User
+  availableTo: Date
+  createdAt: Date
+  id: String
+  status: PurchaseStatus
+  updatedAt: Date
+}
+
+type FAQuiz {
+  QuizContents: [Content]
+  QuizQuestions: [FAQuizQuestion]
+  active: Boolean
+  createdAt: Date
+  deletedAt: Date
+  description: MultiLanguage
+  duration: Interval
+  id: String
+  imageList: [Media]
+  imageMob: [Media]
+  imageWeb: [Media]
+  index: Int
+  label: MultiLanguage
+  questionCount: Int
+  studentsCount: Int
+  title: MultiLanguage
+  type: QuizType
+  updatedAt: Date
+  usersImages: [[Media]]
+}
+
+type FAQuizQuestion {
+  Quiz: FAQuiz
+  QuizQuestionContents: [Content]
+  QuizQuestionOptions: [FAQuizQuestionOption]
+  forGuest: Boolean
+  id: String
+  index: Int
+  title: MultiLanguage
+  type: QuizQuestionType
+}
+
+type FAQuizQuestionOption {
+  NextQuestions: [FAQuizQuestion]
+  QuizQuestion: FAQuizQuestion
+  QuizQuestionOptionGroup: FAQuizQuestionOptionGroup
+  RateDuration: QuizQuestionOptionRateDuration
+  RecommendedConsultation: FAConsultation
+  RecommendedCourse: FACourse
+  RecommendedDocument: FADocument
+  createdAt: Date
+  deletedAt: Date
+  id: String
+  recommendation: MultiLanguage
+  title: MultiLanguage
+  updatedAt: Date
+  weight: Int
+}
+
+type FAQuizQuestionOptionGroup {
+  description: MultiLanguage
+  iconDisabled: [Media]
+  iconEnabled: [Media]
+  id: String
+  title: MultiLanguage
+}
+
+type FAQuizQuestionOptionGroupTranslate {
+  description: String
+  iconDisabled: [Media]
+  iconEnabled: [Media]
+  id: String
+  title: String
+}
+
+type FAQuizQuestionOptionQuizQuestion {
+  QuizOption: FAQuizQuestionOption
+  QuizQuestion: FAQuizQuestion
+  index: Int
+}
+
+type FAQuizResult {
+  Quiz: Quiz
+  QuizRecommendationResults: [QuizRecommendationResult]
+  QuizRecommendedConsultationResults: [QuizRecommendedConsultationResult]
+  QuizRecommendedCourseResults: [QuizRecommendedCourseResult]
+  QuizRecommendedDocumentResults: [QuizRecommendedDocumentResult]
+  User: User
+}
+
+type FAQuizTranslate {
+  active: Boolean
+  createdAt: Date
+  deletedAt: Date
+  description: String
+  duration: Interval
+  id: String
+  imageList: [Media]
+  imageMob: [Media]
+  imageWeb: [Media]
+  index: Int
+  label: String
+  studentsCount: Int
+  title: String
+  type: QuizType
+  updatedAt: Date
+}
+
+type FASale {
+  AvailableProducts: [FAProduct]
+  Coupons: [Coupon]
+  PaymentSystems: [PaymentSystem]
+  SaleContents: [Content]
+  ShouldHaveProducts: [FAProduct]
+  UserAccess: [User]
+  active: Boolean
+  activeFrom: Date!
+  activeTo: Date
+  deletedAt: Date
+  discount: Float!
+  id: String
+  multiUse: Boolean!
+  name: String
+  title: MultiLanguage
+  type: SaleType!
+  useCountPerUser: Int
+  useCountTotal: Int
+}
+
+type FASubscription {
+  PaymentSystem: FAPaymentSystem
+  Plan: FAPlan
+  User: User
+  activationsLeft: Int
+  activationsUsed: Int
+  activeEndDate: Date
+  id: String
+  isTrial: Boolean
+  lastPaymentDate: Date
+  maxActivated: Int
+  pastDueEndDate: Date
+  price: Int
+  startFromTrial: Boolean
+  status: SubscriptionStatus
+  stopReason: SubscriptionStopReason
+}
+
+type FASubscriptionTranslate {
+  PaymentSystem: PaymentSystem
+  Plan: FAPlanTranslate
+  activeEndDate: Date
+  id: String
+  isTrial: Boolean
+  lastPaymentDate: Date
+  pastDueEndDate: Date
+  price: Int
+  startFromTrial: Boolean
+  status: SubscriptionStatus
+  stopReason: SubscriptionStopReason
+}
+
+type FASurvey {
+  Course: FACourse
+  SurveyQuestions: [FASurveyQuestion]
+  Thread: FAThread
+  active: Boolean
+  description: MultiLanguage
+  id: String
+  title: MultiLanguage
+}
+
+type FASurveyOption {
+  hasFluentAnswer: Boolean
+  id: Int
+  index: Int
+  title: MultiLanguage
+}
+
+type FASurveyQuestion {
+  SurveyOptions: [FASurveyOption]
+  description: MultiLanguage
+  id: Int
+  index: Int
+  title: MultiLanguage
+  type: SurveyQuestionType
+}
+
+type FASurveyTranslate {
+  SurveyQuestions: [FASurveyQuestion]
+  active: Boolean
+  description: String
+  id: String
+  title: String
+}
+
+type FATariff {
+  Gifts: [FAGift]
+  Product: FAProduct
+  active: Boolean
+  id: Int
+  index: Int
+  internalName: String
+  meta: FATariffMeta
+  name: MultiLanguage
+  priceDifference: Int
+  zohoProductId: String
+}
+
+type FATariffMeta {
+  avatarTheme: MessageAvatarTheme
+  maxActivatedBySubscription: Int
+}
+
+type FAThread {
+  Course: FACourse
+  Curators: [User]
+  Modules: [FAModule]
+  Product: FAProduct
+  Survey: FASurvey
+  Tariffs: [FATariff]
+  ThreadContents: [Content]
+  audioDuration: Interval
+  description: MultiLanguage
+  endSubmissionDate: Date
+  freeDescription: MultiLanguage
+  freeImage: [Media]
+  freeShow: Boolean
+  freeTitle: MultiLanguage
+  homeworksCount: Int
+  id: String
+  image: [Media]
+  index: Int
+  learnDuration: LearnDuration
+  lessonsCount: Int
+  modulesCount: Int
+  published: Boolean
+  rate: Float
+  startSubmissionDate: Date
+  title: MultiLanguage
+  totalAudios: Int
+  totalVideos: Int
+  userAccessDuration: Duration
+  videoDuration: Interval
+  viewStudents: Boolean
+  visibleFrom: Date
+}
+
+type FAThreadTranslate {
+  Course: FACourseTranslate
+  Curators: [User]
+  Gifts: [FAGiftTranslate]
+  Modules: [FAModuleTranslate]
+  Product: FAProductTranslate
+  Survey: FASurveyTranslate
+  ThreadContents: [Content]
+  audioDuration: Interval
+  description: String
+  endSubmissionDate: Date
+  freeDescription: String
+  freeImage: [Media]
+  freeShow: Boolean
+  freeTitle: String
+  homeworksCount: Int
+  id: String
+  index: Int
+  learnDuration: LearnDuration
+  lessonsCount: Int
+  modulesCount: Int
+  published: Boolean
+  startSubmissionDate: Date
+  title: String
+  totalAudios: Int
+  totalVideos: Int
+  userAccessDuration: Duration
+  videoDuration: Interval
+  viewStudents: Boolean
+  visibleFrom: Date
+}
+
+type FATicket {
+  Room: Room
+  User: User
+  body: String
+  closed: Boolean
+  id: Int
+  title: String
+}
+
+type FATransaction {
+  Merchant: FAMerchant
+  Order: FAOrder
+  User: User
+  actualAmount: Int
+  actualCurrency: String
+  amount: Int
+  createdAt: Date
+  dateOfStatusChange: Date
+  fee: Int
+  id: Int
+  status: TransactionStatus
+}
+
+type FAVideo {
+  Subtitles: [Subtitle]
+  VideoFiles: [VideoFile]
+  VideoMarks: [Mark]
+  createdAt: Date
+  description: String
+  id: String
+  image: [Media]
+  redirectUrl: String
+  title: String
+  updatedAt: Date
+}
+
+input FCHomeworkResultUpdateInput {
+  chatCreated: Boolean
+  completed: Boolean
+  content: GraphQLJSON
+  id: Int!
+  score: Int
+  submitted: Boolean
+}
+
+input FCLessonsFilterInput {
+  moduleId: String
+}
+
+type FCLessonsResponse {
+  Lessons: [Lesson]
+  Pagination: Pagination
+}
+
+input FCLessonsSortInput {
+  field: LessonField!
+  type: SortType!
+}
+
+input FCModulesFilterInput {
+  threadId: String
+}
+
+type FCModulesResponse {
+  Modules: [Module]
+  Pagination: Pagination
+}
+
+input FCModulesSortInput {
+  field: ModuleField!
+  type: SortType!
+}
+
+input FCThreadsFilterInput {
+  courseId: String
+  published: Boolean
+}
+
+type FCThreadsResponse {
+  Pagination: Pagination
+  Threads: [Thread]
+}
+
+input FCThreadsSortInput {
+  field: ThreadField!
+  type: SortType!
+}
+
+type Faq {
+  FaqOptions: [FaqOption]
+  id: Int
+  title: String
+}
+
+type FaqOption {
+  body: String
+  id: Int
+  index: Int
+  title: String
+}
+
+enum FavoriteTarget {
+  FAVORITE_TARGET_CONSULTATION
+  FAVORITE_TARGET_COURSE
+  FAVORITE_TARGET_DOCUMENT
+}
+
+type FavoritesResponse {
+  Consultations: [Consultation]
+  Courses: [Course]
+  Documents: [Document]
+}
+
+type Feedback {
+  avatar: [Media]
+  fullName: String
+  id: Int
+  index: Int
+  regalia: String
+  text: String
+}
+
+input FeedbackInput {
+  avatar: GraphQLJSON
+  name: String
+  text: MultiLanguage
+}
+
+type File {
+  entityId: String
+  file: Media
+  id: Int
+  parentEntity: FileParentEntity
+}
+
+input FileCreateInput {
+  entity: FileParentEntity!
+  entityId: String!
+  file: Upload!
+}
+
+enum FileExtension {
+  FILE_EXTENSION_PNG
+}
+
+enum FileParentEntity {
+  FILE_PARENT_ENTITY_CONSULTATION_CONTENT
+  FILE_PARENT_ENTITY_COURSE_CONTENT
+  FILE_PARENT_ENTITY_COURSE_END_CONTENT
+  FILE_PARENT_ENTITY_DOCUMENT_CONTENT
+  FILE_PARENT_ENTITY_GIFT_CONTENT
+  FILE_PARENT_ENTITY_HOMEWORK_RESULT
+  FILE_PARENT_ENTITY_HOMEWORK_TEST_QUESTION_CONTENT
+  FILE_PARENT_ENTITY_LESSON_CONTENT
+  FILE_PARENT_ENTITY_MODULE_CONTENT
+  FILE_PARENT_ENTITY_PLAN_CONTENT
+  FILE_PARENT_ENTITY_QUIZ_CONTENT
+  FILE_PARENT_ENTITY_QUIZ_QUESTION_CONTENT
+  FILE_PARENT_ENTITY_SALE_CONTENT
+  FILE_PARENT_ENTITY_THREAD_CONTENT
+}
+
+input FilesFilterInput {
+  entityId: String!
+  parentEntity: FileParentEntity!
+}
+
+input FloatRange {
+  from: Float
+  to: Float
+}
+
+type Gift {
+  Document: Document
+  Tariff: Tariff
+  active: Boolean
+  description: String
+  id: String
+  index: Int
+  isReusable: Boolean
+  tariffIds: [Int]
+  title: String
+  type: GiftEntityType
+}
+
+enum GiftEntityType {
+  GIFT_ENTITY_TYPE_DOCUMENT
+  GIFT_ENTITY_TYPE_TARIFF
+}
+
+enum GiftField {
+  GIFT_FIELD_INDEX
+}
+
+scalar GraphQLJSON
+
+enum GraphQlSubscriptionName {
+  SUBSCRIPTION_NAME_MESSAGE
+  SUBSCRIPTION_NAME_NOTIFICATION
+}
+
+enum GraphQlSubscriptionType {
+  SUBSCRIPTION_TYPE_DELETE_MESSAGE
+  SUBSCRIPTION_TYPE_NEW_MESSAGE
+  SUBSCRIPTION_TYPE_NEW_NOTIFICATION
+  SUBSCRIPTION_TYPE_TEST
+  SUBSCRIPTION_TYPE_UPDATE_MESSAGE
+}
+
+input HelpFormCreateInput {
+  email: String!
+  fullName: String!
+  message: String!
+  phone: String!
+  tariffId: Int!
+}
+
+type Homework {
+  HomeworkContent: Content
+  HomeworkFluentContent: Content
+  HomeworkTasks: [HomeworkTask]
+  HomeworkTestQuestions: [HomeworkTestQuestion]
+  Lesson: Lesson
+  Module: Module
+  createdAt: Date
+  description: String
+  id: String
+  index: Int
+  maxScore: Int
+  status: UserHomeworkStatus
+  title: String
+  type: HomeworkType
+  updatedAt: Date
+}
+
+enum HomeworkField {
+  HOMEWORK_FIELD_INDEX
+}
+
+enum HomeworkParentEntity {
+  HOMEWORK_PARENT_ENTITY_LESSON
+  HOMEWORK_PARENT_ENTITY_MODULE
+}
+
+enum HomeworkQuestionField {
+  HOMEWORK_QUESTION_FIELD_INDEX
+}
+
+enum HomeworkQuestionType {
+  HOMEWORK_QUESTION_TYPE_SELECT_MANY
+  HOMEWORK_QUESTION_TYPE_SELECT_ONE
+}
+
+type HomeworkResult {
+  Homework: Homework
+  User: User
+  chatCreated: Boolean
+  completeDate: Date
+  completed: Boolean
+  content: GraphQLJSON
+  createdAt: Date
+  id: Int
+  score: Int
+  scoreDate: Date
+  submitted: Boolean
+}
+
+input HomeworkResultCreate {
+  content: GraphQLJSON!
+  homeworkId: String!
+}
+
+input HomeworkResultUpdateInput {
+  content: GraphQLJSON
+  homeworkId: String!
+}
+
+input HomeworkResultsFilterInput {
+  onlyVip: String
+  threadId: String
+}
+
+type HomeworkResultsResponse {
+  HomeworkResults: [HomeworkResult]
+  Pagination: Pagination
+}
+
+type HomeworkTask {
+  id: Int
+  index: Int
+  rate: Int
+  title: String
+}
+
+type HomeworkTestQuestion {
+  HomeworkTestQuestionContent: Content
+  HomeworkTestQuestionOptions: [HomeworkTestQuestionOption]
+  id: Int
+  index: Int
+  rate: Int
+  title: String
+  type: HomeworkQuestionType
+}
+
+type HomeworkTestQuestionOption {
+  clarification: String
+  id: Int
+  index: Int
+  questionId: Int
+  right: Boolean
+  title: String
+}
+
+enum HomeworkType {
+  HOMEWORK_TYPE_FLUENT
+  HOMEWORK_TYPE_NO_HOMEWORK
+  HOMEWORK_TYPE_TASKS
+  HOMEWORK_TYPE_TEST
+}
+
+input IdOrSlug {
+  id: Int
+  slug: String
+}
+
+type Image {
+  createdAt: Date
+  file: [Media]
+  id: Int
+  name: String
+  updatedAt: Date
+}
+
+enum ImageField {
+  IMAGE_FIELD_CREATED_AT
+}
+
+input IntRange {
+  from: Int
+  to: Int
+}
+
+# Interval custom scalar type
+scalar Interval
+
+type Language {
+  code: String
+  id: Int
+  index: Int
+  name: String
+  nativeName: String
+}
+
+type LearnDuration {
+  days: Int
+  hours: Int
+  minutes: Int
+  months: Int
+  seconds: Int
+  weeks: Int
+  years: Int
+}
+
+input LearnDurationInput {
+  days: Int
+  hours: Int
+  minutes: Int
+  months: Int
+  seconds: Int
+  weeks: Int
+  years: Int
+}
+
+type Lesson {
+  Author: Author
+  Course: Course
+  Homework: [Homework]
+  LessonContents: [Content]
+  Module: Module
+  UserLessonProgress: Progress
+  active: Boolean
+  availabilityDate: Date
+  availableByDate: Boolean
+  availableByPrevCompleted: Boolean
+  availableHomeworkCount: Int
+  completedHomeworkCount: Int
+  completionRate: Float
+  createdAt: Date
+  description: String
+  homeworksCount: Int
+  id: String
+  index: Int
+  isAvailable: Boolean
+  rate: Float
+  submittedHomeworkCount: Int
+  title: String
+  uncompletedHomeworkResultCount: Int
+  updatedAt: Date
+}
+
+enum LessonField {
+  LESSON_FIELD_INDEX
+  LESSON_FIELD_RATE
+}
+
+input LessonRateInput {
+  id: String!
+  rate: Int!
+}
+
+type LessonsResponse {
+  Pagination: Pagination
+}
+
+type Mark {
+  id: Int
+  text: String
+  timing: Time
+}
+
+type MeResponse {
+  City: City
+  Country: Country
+  Currency: Currency
+  Language: Language
+  Role: Role
+  Sale: Sale
+  Subscription: UserSubscription
+  Timezone: Timezone
+  autoGenerated: Boolean
+  avatar: [Media]
+  birthDate: Date
+  email: String
+  fullName: String
+  hadSubscriptionBefore: Boolean
+  id: String
+  isResident: Boolean
+  monthsFromRegistration: Int
+  phone: String
+  smartSenderId: String
+}
+
+type Media {
+  fileName: String
+  height: Int
+  isOriginal: Boolean
+  path: String
+  size: Int
+  width: Int
+}
+
+type MeetingMethod {
+  icon: [Media]
+  id: Int
+  name: String
+}
+
+type Merchant {
+  PaymentSystem: PaymentSystem
+  displayName: String
+  id: String
+  meta: MerchantMeta
+  residentOfUkraine: Boolean
+}
+
+type MerchantMeta {
+  accountNumber: String
+  edrpoyCode: String
+  mfo: String
+  purposeOfPayment: String
+}
+
+input MerchantMetaInput {
+  accountNumber: String
+  edrpoyCode: String
+  mfo: String
+  purposeOfPayment: String
+}
+
+enum MerchantName {
+  MERCHANT_NAME_ACTIVATE
+  MERCHANT_NAME_CASH
+  MERCHANT_NAME_GIFT
+  MERCHANT_NAME_RESTORE
+  MERCHANT_NAME_TRIAL
+}
+
+type Message {
+  belongsToMyCompany: Boolean
+  body: String
+  createdAt: Date
+  id: String
+  isEdited: Boolean
+  isMy: Boolean
+  isRead: Boolean
+  meta: MessageMeta
+  repliedMessage: Message
+  theme: MessageTheme
+  type: MessageType
+  updatedAt: Date
+}
+
+enum MessageAvatarTheme {
+  MESSAGE_AVATAR_THEME_DEFAULT
+  MESSAGE_AVATAR_THEME_VIP
+  MESSAGE_AVATAR_THEME_VIP_PLUS
+}
+
+input MessageChangeTheme {
+  id: String!
+  theme: MessageTheme!
+}
+
+input MessageCreateInput {
+  body: String
+  file: Upload
+  roomId: String!
+  type: MessageType!
+}
+
+type MessageMeta {
+  Author: User
+  Parent: MessageMetaParent
+  avatarTheme: MessageAvatarTheme
+  file: Media
+}
+
+type MessageMetaParent {
+  entityName: EntityName
+  id: String
+}
+
+input MessageReplyInput {
+  body: String!
+  repliedMessageId: String!
+}
+
+enum MessageTheme {
+  MESSAGE_AVATAR_THEME_DEFAULT
+  MESSAGE_AVATAR_THEME_VIP
+  MESSAGE_AVATAR_THEME_VIP_PLUS
+  MESSAGE_THEME_CURATOR
+  MESSAGE_THEME_ORDINARY
+  MESSAGE_THEME_VIP
+}
+
+enum MessageType {
+  MESSAGE_TYPE_ATTACHMENT
+  MESSAGE_TYPE_AUDIO
+  MESSAGE_TYPE_IMAGE
+  MESSAGE_TYPE_TEXT
+  MESSAGE_TYPE_VIDEO
+}
+
+input MessageUpdateInput {
+  body: String!
+  id: String!
+}
+
+type MessageWithAction {
+  Message: Message
+  type: GraphQlSubscriptionType
+}
+
+input MessagesFilterInput {
+  fromMessageId: String
+  roomId: String!
+  toMessageId: String
+  toMessageShift: Int
+}
+
+type MessagesResponse {
+  Messages: [Message]
+  Pagination: Pagination
+}
+
+type Module {
+  Homework: [Homework]
+  Lessons: [Lesson]
+  ModuleContents: [Content]
+  Thread: Thread
+  UserModuleProgress: Progress
+  active: Boolean
+  availabilityDate: Date
+  availableByDate: Boolean
+  availableByPrevCompleted: Boolean
+  availableHomeworkCount: Int
+  completedHomeworkCount: Int
+  completionRate: Float
+  courseId: String
+  description: String
+  homeworksCount: Int
+  id: String
+  index: Int
+  isAvailable: Boolean
+  isFree: Boolean
+  lessonsCount: Int
+  rate: Float
+  root: Boolean
+  submittedHomeworkCount: Int
+  threadId: String
+  title: String
+  uncompletedHomeworkResultCount: Int
+}
+
+enum ModuleField {
+  MODULE_FIELD_INDEX
+  MODULE_FIELD_RATE
+}
+
+# MultiLanguage custom scalar type
+scalar MultiLanguage
+
+scalar MultiLanguageNullable
+
+type Mutation {
+  FCHomeworkResultUpdate(record: FCHomeworkResultUpdateInput!): HomeworkResult
+  acceptTerm(termId: Int!): Boolean
+  appointmentBook(id: Int!): Appointment
+  appointmentCancel(id: Int!): Appointment
+  appointmentMove(record: AppointmentMoveInput!): Appointment
+  cardDelete(id: String): Boolean
+  favoriteCreate(targetId: String!, targetType: FavoriteTarget!): Boolean
+  favoriteDelete(targetId: String!, targetType: FavoriteTarget!): Boolean
+  fileCreate(record: FileCreateInput!): File
+  fileDelete(id: Int!): Boolean
+  generateUser: Token
+  helpFormCreate(record: HelpFormCreateInput!): Boolean
+  homeworkResultCalculate(homeworkId: String!): HomeworkResult
+  homeworkResultCreate(record: HomeworkResultCreate): HomeworkResult
+  homeworkResultDelete(homeworkId: String!): HomeworkResult
+  homeworkResultUpdate(record: HomeworkResultUpdateInput!): HomeworkResult
+  homeworkTaskResultCreate(taskId: Int!): Boolean
+  homeworkTestQuestionOptionCreate(optionId: Int!): Boolean
+  lessonRate(record: LessonRateInput): Boolean
+  messageChangeTheme(record: MessageChangeTheme!): Message
+  messageCreate(record: MessageCreateInput): Message
+  messageDelete(id: String): Message
+  messagePin(id: String!): Message
+  messageReply(record: MessageReplyInput): Message
+  messageUnpin(roomId: String!): Room
+  messageUpdate(record: MessageUpdateInput): Message
+  orderCreate(record: OrderCreateInput!): OrderCreateResponse
+  orderPaySavedCard(record: orderPaySavedCardInput!): Boolean
+  passwordChange(currentPassword: String!, newPassword: String!): Token
+  passwordForgotConfirm(forgotToken: String!, newPassword: String!): Token
+  passwordForgotRequest(email: String!): Token
+  planTrialActivate(id: String!, responseUrl: String!): PlanTrialActivateResponse
+  profileUpdate(record: ProfileUpdateInput!): MeResponse
+  purchaseUse(id: String!): Boolean
+  quizNextQuestion(answer: QuizQuestionAnswerCreateInput, quizId: String!): QuizQuestion
+  quizReset(quizId: String!): Boolean
+  registration(record: UserRegistrationData!): Token
+  request: String
+  roomBanUser(record: RoomBanUserInput): Room
+  roomUnbanUser(record: RoomBanUserInput): Room
+  subscriptionUpdate(record: SubscriptionUpdateInput!): UserSubscription
+  surveyQuestionResultCreate(record: SurveyQuestionResultCreateInput!): Boolean
+  testLogin(email: String!, password: String!): Token
+  threadFreeActivate(id: String!): Boolean
+  threadLeave(id: String!): Boolean
+  ticketCommentCreate(record: TicketCommentCreateInput): Message
+  ticketCreate(record: TicketCreateInput!): Ticket
+  ticketUpdate(record: TicketUpdateInput!): Ticket
+  userVideoMarkCreate(record: UserVideoMarkCreateInput!): UserVideoMark
+  userVideoMarkDelete(id: Int!): Boolean
+  userVideoMarkUpdate(record: UserVideoMarkUpdateInput!): UserVideoMark
+}
+
+input MyTicketsFilterInput {
+  body: String
+  closed: Boolean
+  title: String
+}
+
+type MyTicketsResponse {
+  Pagination: Pagination
+  Tickets: [Ticket]
+}
+
+type NextLearningStep {
+  Course: Course
+  entityId: String
+  entityName: EntityName
+}
+
+type NotificationWithType {
+  Notification: PushNotification
+  type: GraphQlSubscriptionType
+}
+
+type Order {
+  Merchant: Merchant
+  OrderAlias: OrderAlias
+  Products: [Product]
+  id: String
+  price: Int
+}
+
+type OrderAlias {
+  alias: String
+}
+
+input OrderAvailableCardsInput {
+  paymentMethodId: Int!
+  productId: String!
+}
+
+input OrderCheckInput {
+  couponCode: String
+  productCount: Int!
+  productId: String!
+  saleId: String
+  tariffId: Int
+}
+
+input OrderCreateInput {
+  couponCode: String
+  paymentMethodId: Int!
+  productCount: Int!
+  productId: String!
+  responseUrl: String
+  saleId: String
+  tariffId: Int
+  userId: String
+}
+
+type OrderCreateResponse {
+  Order: Order
+  paymentLink: String
+}
+
+enum OrderField {
+  ORDER_FIELD_CREATED_AT
+}
+
+type OrderPrice {
+  default: Int
+  difference: Int
+  total: Int
+}
+
+enum OrderType {
+  ORDER_TYPE_ADD_CARD
+  ORDER_TYPE_GENERAL
+  ORDER_TYPE_INTERNAL
+  ORDER_TYPE_RECURRING
+  ORDER_TYPE_UPGRADE
+}
+
+type Page {
+  id: Int
+  seoDescription: String
+  seoTitle: String
+  slug: String
+}
+
+type Pagination {
+  currentPage: Int
+  nextPageExists: Boolean
+  previousPageExists: Boolean
+  total: Int
+  totalPages: Int
+}
+
+type Parent {
+  Parent: Parent
+  entityName: EntityName
+  id: String
+  title: String
+}
+
+type PaymentMethod {
+  DefaultMerchant: FAMerchant
+  Faq: Faq
+  GlobalMerchant: FAMerchant
+  displayName: String
+  id: Int
+  index: Int
+  name: String
+}
+
+enum PaymentMethodField {
+  PAYMENT_SYSTEM_FIELD_INDEX
+}
+
+enum PaymentMethodName {
+  PAYMENT_METHOD_NAME_CARD
+  PAYMENT_METHOD_NAME_CASH
+  PAYMENT_METHOD_NAME_INSTALLMENT
+}
+
+type PaymentSystem {
+  Cards: [Card]
+  displayName: String
+  id: String
+}
+
+enum PaymentSystemName {
+  PAYMENT_SYSTEM_NAME_CASH
+  PAYMENT_SYSTEM_NAME_FONDY
+  PAYMENT_SYSTEM_NAME_INTERNAL
+  PAYMENT_SYSTEM_NAME_WAY_FOR_PAY
+}
+
+type PgBossJob {
+  completedon: Date
+  createdon: Date
+  data: GraphQLJSON
+  expirein: Date
+  id: String
+  keepuntil: Date
+  name: String
+  on_complete: Boolean
+  priority: Int
+  retrybackoff: Boolean
+  retrycount: Int
+  retrydelay: Int
+  retrylimit: Int
+  singletonkey: String
+  singletonon: Date
+  startafter: Date
+  startedon: Date
+  state: PgJobState
+}
+
+enum PgJobState {
+  PG_JOB_STATE_ACTIVE
+  PG_JOB_STATE_CANCELLED
+  PG_JOB_STATE_COMPLETED
+  PG_JOB_STATE_CREATED
+  PG_JOB_STATE_EXPIRED
+  PG_JOB_STATE_FAILED
+  PG_JOB_STATE_RETRY
+}
+
+type Plan {
+  Product: FAProduct
+  active: Boolean
+  description: String
+  duePeriod: Int
+  duration: Interval
+  id: String
+  imageMob: [Media]
+  imageWeb: [Media]
+  index: Int
+  infinity: Boolean
+  landingUrl: String
+  lifetime: Boolean
+  productId: String
+  shortTitle: String
+  title: String
+  trialPeriod: Int
+}
+
+type PlanTrialActivateResponse {
+  activated: Boolean
+  paymentLink: String
+}
+
+type Price {
+  Currency: Currency
+  default: Int
+  old: Int
+  sale: Int
+  withSale: Int
+}
+
+type PriceList {
+  PriceListProperties: [PriceListProperty]
+  Product: Product
+  Sale: Sale
+  Tariff: Tariff
+  id: Int
+  isActive: Boolean
+  isHighlight: Boolean
+  title: String
+}
+
+type PriceListOption {
+  PriceListProperties: [PriceListProperty]
+  id: Int
+  index: Int
+  isActive: Boolean
+  name: String
+  title: String
+}
+
+enum PriceListOptionField {
+  PRICE_LIST_OPTION_FIELD_INDEX
+}
+
+type PriceListOptionTest {
+  PriceListProperties: [PriceListProperty]
+  id: Int
+  index: Int
+  title: String
+}
+
+type PriceListProperty {
+  PriceList: PriceList
+  PriceListOption: PriceListOption
+  boolValue: Boolean
+  id: Int
+  index: Int
+  stringValue: String
+  type: PriceListPropertyType
+}
+
+enum PriceListPropertyField {
+  PRICE_LIST_PROPERTY_FIELD_INDEX
+}
+
+enum PriceListPropertyType {
+  PRICE_LIST_PROPERTY_TYPE_BOOLEAN
+  PRICE_LIST_PROPERTY_TYPE_STRING
+}
+
+type PriceListTestResponse {
+  Options: [PriceListOptionTest]
+  PriceLists: [PriceList]
+}
+
+type Product {
+  Consultation: Consultation
+  Course: Course
+  Faq: Faq
+  Gifts: [Gift]
+  Plan: Plan
+  Tariffs: [Tariff]
+  Thread: Thread
+  availableBySubscription: Boolean
+  availableDuration: Duration
+  description: String
+  id: String
+  imageMob: [Media]
+  imageWeb: [Media]
+  landingUrl: String
+  oldPrice: Int
+  price: Int
+  title: String
+}
+
+input ProductCreateInput {
+  availableBySubscription: Boolean
+  availableDuration: Duration
+  description: MultiLanguage!
+  landingUrl: String
+  merchantId: String
+  oldPrice: Int
+  price: Int!
+  productByGiftIds: [String]
+  title: MultiLanguage!
+}
+
+enum ProductField {
+  PRODUCT_FIELD_CREATED_AT
+  PRODUCT_FIELD_DESCRIPTION
+  PRODUCT_FIELD_LANDING_URL
+  PRODUCT_FIELD_TITLE
+}
+
+input ProductUpgradeInput {
+  paymentMethodId: Int!
+  productId: String!
+  tariffId: Int!
+}
+
+input ProfileUpdateInput {
+  avatar: Upload
+  birthDate: Date
+  cityId: Int
+  countryId: Int
+  currencyId: Int
+  fullName: String
+  isResident: Boolean
+  phone: String
+  primaryLanguageId: Int
+  timezone: String
+}
+
+type Progress {
+  efficiency: Int
+  progress: Int
+}
+
+type Purchase {
+  Product: Product
+  availableTo: Date
+  id: String
+  status: PurchaseStatus
+}
+
+enum PurchaseEntity {
+  PURCHASE_ENTITY_CONSULTATION
+  PURCHASE_ENTITY_COURSE
+  PURCHASE_ENTITY_PLAN
+  PURCHASE_ENTITY_THREAD
+}
+
+enum PurchaseField {
+  PURCHASE_FIELD_AVAILABLE_TO
+  PURCHASE_FIELD_CREATED_AT
+  PURCHASE_FIELD_STATUS
+  PURCHASE_FIELD_USED
+}
+
+enum PurchaseStartReason {
+  PURCHASE_START_REASON_BUY
+  PURCHASE_START_REASON_SUBSCRIPTION
+}
+
+enum PurchaseStatus {
+  PURCHASE_STATUS_AVAILABLE
+  PURCHASE_STATUS_HOLD
+  PURCHASE_STATUS_SPENT
+}
+
+enum PurchaseStopReason {
+  PURCHASE_STOP_REASON_LIFETIME_EXPIRED
+  PURCHASE_STOP_REASON_REPLACE
+  PURCHASE_STOP_REASON_SPENT
+  PURCHASE_STOP_REASON_STOPPED
+}
+
+input PurchasesFilterInput {
+  entity: PurchaseEntity
+}
+
+type PurchasesResponse {
+  Pagination: Pagination
+  Purchases: [Purchase]
+}
+
+input PurchasesSortInput {
+  field: PurchaseField!
+  type: SortType!
+}
+
+type PushNotification {
+  event: EventName
+  message: String
+}
+
+input PushNotificationsFilterInput {
+  entityName: EntityName
+  fromMessageId: String
+  toMessageId: String
+  toMessageShift: Int
+}
+
+type Query {
+  Date: Date
+  Duration: Duration
+  FCHomeworkResultById(id: Int!): HomeworkResult
+  FCLessons(filter: FCLessonsFilterInput, limit: Int, offset: Int, sort: FCLessonsSortInput): FCLessonsResponse
+  FCModules(filter: FCModulesFilterInput, limit: Int, offset: Int, sort: FCModulesSortInput): FCModulesResponse
+  FCThreadById(id: String!): Thread
+  FCThreads(filter: FCThreadsFilterInput, limit: Int, offset: Int, sort: FCThreadsSortInput): FCThreadsResponse
+  Interval: Interval
+  MultiLanguage: MultiLanguage
+  Time: Time
+  appointments(filter: AppointmentsFilterInput, sort: AppointmentsSortInput): [Appointment]
+  appointmentsMy(filter: AppointmentsMyFilterInput, sort: AppointmentsSortInput): [Appointment]
+  authorById(id: String!): Author
+  authors(filter: AuthorsFilterInput, sort: AuthorsSortInput): [Author]
+  availablePaymentMethods(productId: String!): [PaymentMethod]
+  avatarDelete: MeResponse
+  banners: [Banner]
+  cardsMy: [PaymentSystem]
+  categories(filter: CategoriesFilterInput, sort: CategoriesSortInput): [Category]
+  cities(filter: CitiesFilterInput, limit: Int, offset: Int): CitiesResponse
+  cityById(id: Int!): City
+  consultation(record: StringIdOrSlug!): Consultation
+  consultations(filter: ConsultationsFilterInput, limit: Int, offset: Int): ConsultationResponse
+  consultationsMy: [Consultation]
+  countries(filter: CountiesFilterInput, limit: Int, offset: Int): CountriesResponse
+  countryById(id: Int!): Country
+  course(record: StringIdOrSlug!): Course
+  coursePreview(id: String!, preview: CoursePreview!): Course
+  courses(filter: CoursesFilterInput, limit: Int, offset: Int): CoursesResponse
+  directories: directoriesResponse
+  documentById(id: String!): Document
+  documents(filter: DocumentsFilterInput, limit: Int, offset: Int, sort: DocumentsSortInput): DocumentResponse
+  entityGetParent(entityName: EntityName!, id: String!): Parent
+  faq(id: Int!): Faq
+  favoriteConsultations: [Consultation]
+  favoriteCourses: [Course]
+  favoriteDocuments: [Document]
+  files(filter: FilesFilterInput!): [File]
+  gift(id: String!): Gift
+  homeworkById(id: String!): Homework
+  homeworkResult(homeworkId: String!): HomeworkResult
+  homeworkResults(filter: HomeworkResultsFilterInput, limit: Int, offset: Int): HomeworkResultsResponse
+  homeworkTasks(homeworkId: String!): [HomeworkTask]
+  homeworkTestQuestionOptions(questionIds: [Int]!): [HomeworkTestQuestionOption]
+  lesson(record: StringIdOrSlug!): Lesson
+  liveWebinars(limit: Int, offset: Int): WebinarsResponse
+  me: MeResponse
+  messages(filter: MessagesFilterInput!, limit: Int, offset: Int): MessagesResponse
+  module(record: StringIdOrSlug!): Module
+  modules(courseId: String, threadId: String): [Module]
+  myFavorites: FavoritesResponse
+  nextLearningStep(courseId: String!): NextLearningStep
+  nextLesson(record: StringIdOrSlug!): Lesson
+  nextLessons: [Lesson]
+  orderAvailableCards(record: OrderAvailableCardsInput!): [Card]
+  orderCheck(record: OrderCheckInput!): OrderPrice
+  planById(id: String!): Plan
+  plans: [Plan]
+  priceListOptions(productId: String!): [PriceListOption]
+  priceLists(productId: String!): [PriceList]
+  priceListsTest(productId: String!): PriceListTestResponse
+  productActivateBySubscription(id: String!): Boolean
+  productById(id: String!): Product
+  productUpgrade(record: ProductUpgradeInput!): OrderCreateResponse
+  purchases(filter: PurchasesFilterInput, limit: Int, offset: Int, sort: PurchasesSortInput): PurchasesResponse
+  pushNotifications(filter: PushNotificationsFilterInput, limit: Int, offset: Int): MessagesResponse
+  quizById(id: String!): Quiz
+  quizQuestionOptionGroups(limit: Int, offset: Int): QuizQuestionOptionGroupsResponse
+  quizResult(quizId: String!): QuizResult
+  quizzes(filter: QuizzesFilterInput, limit: Int, offset: Int): QuizzesResponse
+  recommendedCourses(limit: Int, offset: Int): CoursesResponse
+  regionById(id: Int!): Region
+  regions(filter: RegionsFilterInput, limit: Int, offset: Int): RegionsResponse
+  request: String
+  room(record: RoomFindInput!): Room
+  rooms(limit: Int, offset: Int): RoomsResponse
+  statisticsMy: User
+  subscriptions: [UserSubscription]
+  survey(threadId: String!): Survey
+  surveyQuestionResults(surveyId: String!): [SurveyQuestionResult]
+  surveyStatistics(id: String!): Survey
+  threadById(id: String!): Thread
+  ticketById(id: Int!): Ticket
+  ticketsMy(filter: MyTicketsFilterInput, limit: Int, offset: Int): MyTicketsResponse
+  tildaPage(alias: String!): TildaPage
+  transactions(filter: TransactionsFilterInput, limit: Int, offset: Int): TransactionResponse
+  userCheck: [String]
+  userVideoMarks(filter: UserVideoMarksFilterInput, limit: Int, offset: Int): UserVideoMarksResponse
+  videoById(id: String!): FAVideo
+  webinars(limit: Int, offset: Int): WebinarsResponse
+}
+
+enum QueueName {
+  QUEUE_NAME_CONSULTATION_BEFORE_30_MIN
+  QUEUE_NAME_CONSULTATION_BEFORE_DAY
+  QUEUE_NAME_NEW_THREAD_IN_COURSE
+  QUEUE_NAME_RECURRENT
+  QUEUE_NAME_TILDA
+  QUEUE_NAME_UNPAID_ORDER
+}
+
+type Quiz {
+  QuizContent: Content
+  QuizQuestion: [QuizQuestion]
+  description: String
+  duration: Interval
+  id: String
+  imageList: [Media]
+  imageMob: [Media]
+  imageWeb: [Media]
+  index: Int
+  label: String
+  questionCount: Int
+  status: QuizUserStatus
+  studentsCount: Int
+  title: String
+  type: QuizType
+  usersImages: [[Media]]
+}
+
+type QuizQuestion {
+  Quiz: Quiz
+  QuizQuestionContent: Content
+  QuizQuestionOptions: [QuizQuestionOption]
+  id: String
+  index: Int
+  number: Int
+  title: String
+  type: QuizQuestionType
+}
+
+input QuizQuestionAnswerCreateInput {
+  optionIds: [String]!
+  questionId: String!
+}
+
+type QuizQuestionOption {
+  QuizQuestion: QuizQuestion
+  QuizQuestionOptionGroup: QuizQuestionOptionGroup
+  RateDuration: QuizQuestionOptionRateDuration
+  RecommendedConsultation: Consultation
+  RecommendedCourse: Course
+  RecommendedDocument: Document
+  createdAt: Date
+  deletedAt: Date
+  id: String
+  index: Int
+  recommendation: String
+  title: String
+  updatedAt: Date
+  weight: Int
+}
+
+type QuizQuestionOptionGroup {
+  description: String
+  iconDisabled: [Media]
+  iconEnabled: [Media]
+  id: String
+  title: String
+}
+
+type QuizQuestionOptionGroupWithResults {
+  Recommendations: [QuizRecommendationResult]
+  description: String
+  iconDisabled: [Media]
+  iconEnabled: [Media]
+  id: String
+  title: String
+}
+
+type QuizQuestionOptionGroupsResponse {
+  Pagination: Pagination
+  QuizQuestionOptionGroups: [QuizQuestionOptionGroup]
+}
+
+type QuizQuestionOptionRateDuration {
+  from: Int
+  to: Int
+}
+
+enum QuizQuestionType {
+  QUIZ_QUESTION_TYPE_BOOL
+  QUIZ_QUESTION_TYPE_RATE
+  QUIZ_QUESTION_TYPE_SELECT_MULTI
+  QUIZ_QUESTION_TYPE_SELECT_ONE
+}
+
+type QuizRecommendationResult {
+  id: String
+  index: Int
+  text: String
+}
+
+type QuizRecommendedConsultationResult {
+  Consultation: Consultation
+  weight: Int
+}
+
+type QuizRecommendedCourseResult {
+  Course: Course
+  weight: Int
+}
+
+type QuizRecommendedDocumentResult {
+  Document: Document
+  weight: Int
+}
+
+type QuizResult {
+  Quiz: Quiz
+  QuizRecommendationResults: [QuizQuestionOptionGroupWithResults]
+  QuizRecommendedConsultationResults: [QuizRecommendedConsultationResult]
+  QuizRecommendedCourseResults: [QuizRecommendedCourseResult]
+  QuizRecommendedDocumentResults: [QuizRecommendedDocumentResult]
+  User: User
+}
+
+enum QuizType {
+  QUIZ_TYPE_CATALOG
+  QUIZ_TYPE_DIAGNOSTICS
+}
+
+enum QuizUserStatus {
+  QUIZ_USER_STATUS_DONE
+  QUIZ_USER_STATUS_NOT_STARTED
+  QUIZ_USER_STATUS_STARTED
+}
+
+input QuizzesFilterInput {
+  type: QuizType
+}
+
+type QuizzesResponse {
+  Pagination: Pagination
+  Quizzes: [Quiz]
+}
+
+type Region {
+  Cities: [City]
+  Country: Country
+  id: Int
+  name: String
+}
+
+input RegionsFilterInput {
+  countryId: Int
+  name: String
+}
+
+type RegionsResponse {
+  Pagination: Pagination
+  Regions: [Region]
+}
+
+enum ResolverType {
+  RESOLVER_TYPE_MUTATION
+  RESOLVER_TYPE_QUERY
+  RESOLVER_TYPE_SCALAR
+  RESOLVER_TYPE_SUBSCRIPTION
+}
+
+type Role {
+  displayName: String
+  id: String
+  name: RoleName
+}
+
+enum RoleName {
+  ROLE_NAME_CURATOR
+  ROLE_NAME_REVIEWER
+  ROLE_NAME_STUDENT
+}
+
+type Room {
+  hasUnreadMessage: Boolean
+  id: String
+  isActive: Boolean
+  lastMessage: Message
+  meta: RoomMeta
+  pinnedMessage: Message
+}
+
+input RoomBanUserInput {
+  roomId: String!
+  userIds: [String]!
+}
+
+input RoomCreateAnyFieldsInput {
+  userId: String
+}
+
+input RoomCreateInput {
+  anyFields: RoomCreateAnyFieldsInput
+  entityName: EntityName!
+  id: String!
+}
+
+input RoomFindInput {
+  entityId: String!
+  entityName: EntityName!
+}
+
+type RoomMeta {
+  Parent: Parent
+}
+
+enum RoomType {
+  ROOM_TYPE_ORDINARY
+  ROOM_TYPE_SUPPORT
+}
+
+type RoomsResponse {
+  Pagination: Pagination
+  Rooms: [Room]
+}
+
+type Sale {
+  SaleContents: [Content]
+  active: Boolean
+  activeFrom: Date
+  activeTo: Date
+  discount: Float
+  id: String
+  name: String
+  title: String
+  type: SaleType
+}
+
+enum SaleField {
+  SALE_FIELD_ACTIVE
+  SALE_FIELD_ACTIVE_FROM
+  SALE_FIELD_ACTIVE_TO
+  SALE_FIELD_CREATED_AT
+  SALE_FIELD_DISCOUNT
+  SALE_FIELD_MULTI_USE
+  SALE_FIELD_TYPE
+  SALE_FIELD_USE_COUNT_PER_USER
+  SALE_FIELD_USE_COUNT_TOTAL
+}
+
+enum SaleType {
+  SALE_TYPE_FEE
+  SALE_TYPE_PERCENTS
+}
+
+type Setting {
+  id: Int
+  name: String
+  value: String
+}
+
+type Settings {
+  becomeAPartner: String
+  becomeAnAuthor: String
+  book: String
+  company: String
+  connect: String
+  contacts: String
+  experts: String
+  founder: String
+  helpCenter: String
+  invite: String
+  jobs: String
+  ourBrands: String
+  pressReleases: String
+  privacyPolicy: String
+  publicOffer: String
+  referralProgram: String
+  shop: String
+  support: String
+  termsOfUse: String
+  wiCommunity: String
+}
+
+enum SocialName {
+  SOCIAL_NAME_FACEBOOK
+  SOCIAL_NAME_GOOGLE
+}
+
+enum SortType {
+  SORT_TYPE_ASC
+  SORT_TYPE_DESC
+}
+
+input StringIdOrSlug {
+  id: String
+  slug: String
+}
+
+type Subscription {
+  messageSubscription(roomId: String!): MessageWithAction
+  pushNotificationSubscription: NotificationWithType
+  request: String
+}
+
+enum SubscriptionStatus {
+  SUBSCRIPTION_STATUS_ACTIVE
+  SUBSCRIPTION_STATUS_STOPPED
+}
+
+enum SubscriptionStopReason {
+  SUBSCRIPTION_STOP_REASON_CANCELED
+  SUBSCRIPTION_STOP_REASON_EXPIRED
+}
+
+input SubscriptionUpdateInput {
+  renew: Boolean
+}
+
+type Subtitle {
+  Language: Language
+  file: String
+}
+
+type Survey {
+  SurveyQuestions: [SurveyQuestion]
+  description: String
+  id: String
+  title: String
+}
+
+type SurveyOption {
+  answersCount: Int
+  freeAnswers: [SurveyQuestionResult]
+  hasFluentAnswer: Boolean
+  id: Int
+  index: Int
+  percent: Float
+  title: String
+}
+
+type SurveyQuestion {
+  SurveyOptions: [SurveyOption]
+  SurveyQuestionResults: [SurveyQuestionResult]
+  answersCount: Int
+  description: String
+  id: Int
+  numbersStatistics: GraphQLJSON
+  title: String
+  type: SurveyQuestionType
+}
+
+type SurveyQuestionResult {
+  SurveyOption: SurveyOption
+  SurveyQuestion: SurveyQuestion
+  User: User
+  freeAnswer: String
+  id: Int
+  numberAnswer: Int
+  optionId: Int
+  questionId: Int
+}
+
+input SurveyQuestionResultCreateInput {
+  freeAnswer: String
+  numberAnswer: Int
+  optionId: Int
+  questionId: Int!
+}
+
+enum SurveyQuestionType {
+  SURVEY_QUESTION_TYPE_BOOL
+  SURVEY_QUESTION_TYPE_CHECKBOX
+  SURVEY_QUESTION_TYPE_RADIO
+  SURVEY_QUESTION_TYPE_RATE
+  SURVEY_QUESTION_TYPE_SLIDER
+  SURVEY_QUESTION_TYPE_STRING
+  SURVEY_QUESTION_TYPE_TEXT
+}
+
+type Tag {
+  id: Int
+  name: String
+  visible: Boolean
+}
+
+type Tariff {
+  Gifts: [Gift]
+  Prices: [Price]
+  Product: Product
+  id: Int
+  index: Int
+  name: String
+  priceDifference: Int
+}
+
+enum TariffInternalName {
+  TARIFF_INTERNAL_NAME_BASE
+  TARIFF_INTERNAL_NAME_STANDARD
+  TARIFF_INTERNAL_NAME_VIP
+}
+
+enum TaskName {
+  TASK_NAME_CHECK_SUBSCRIPTION
+}
+
+enum TemplateDestination {
+  TEMPLATE_DESTINATION_EMAIL
+  TEMPLATE_DESTINATION_POPUP
+  TEMPLATE_DESTINATION_PUSH
+}
+
+enum TermType {
+  TERM_TYPE_COMMUNITY_RULES
+  TERM_TYPE_PRIVACY_POLICY
+  TERM_TYPE_PUBLIC_OFFER
+}
+
+type Thread {
+  Authors: [Author]
+  Course: FACourse
+  Modules: [Module]
+  MyTariff: Tariff
+  Product: Product
+  Survey: Survey
+  ThreadContent: Content
+  UserThreadProgress: Progress
+  audioDuration: Interval
+  availableActions: [ThreadAvailableAction]
+  availableHomeworkCount: Int
+  completedHomeworkCount: Int
+  completionRate: Float
+  courseId: String
+  description: String
+  endSubmissionDate: Date
+  freeDescription: String
+  freeImage: [Media]
+  freeShow: Boolean
+  freeTitle: String
+  homeworksCount: Int
+  id: String
+  image: [Media]
+  index: Int
+  learnDuration: LearnDuration
+  lessonsCount: Int
+  modulesCount: Int
+  published: Boolean
+  rate: Float
+  startSubmissionDate: Date
+  studentsCompletedCount: Int
+  studentsCount: Int
+  submittedHomeworkCount: Int
+  title: String
+  totalAudios: Int
+  totalTests: Int
+  totalVideos: Int
+  uncompletedHomeworkResultCount: Int
+  userAccessDuration: Duration
+  videoDuration: Interval
+  viewStudents: Boolean
+}
+
+enum ThreadAvailableAction {
+  THREAD_AVAILABLE_ACTION_ACTIVATE_BY_FREE
+  THREAD_AVAILABLE_ACTION_ACTIVATE_BY_SUBSCRIPTION
+  THREAD_AVAILABLE_ACTION_BUY
+}
+
+enum ThreadField {
+  THREAD_FIELD_CREATED_AT
+  THREAD_FIELD_END_SUBMISSION_DATE
+  THREAD_FIELD_INDEX
+  THREAD_FIELD_START_RATE
+  THREAD_FIELD_START_SUBMISSION_DATE
+  THREAD_FIELD_STUDENTS_COUNT
+  THREAD_FIELD_UNCOMPLETED_HOMEWORK_RESULT_COUNT
+}
+
+type Ticket {
+  Room: Room
+  body: String
+  closed: Boolean
+  id: Int
+  title: String
+}
+
+input TicketCommentCreateInput {
+  body: String!
+  file: Upload
+  ticketId: Int!
+}
+
+input TicketCreateInput {
+  attachment: Upload
+  body: String!
+  title: String!
+}
+
+input TicketUpdateInput {
+  closed: Boolean!
+  id: Int!
+}
+
+type TildaPage {
+  TildaProject: TildaProject
+  active: Boolean
+  alias: String
+  createdAt: Date
+  date: Date
+  descr: String
+  externalId: String
+  featureimg: String
+  filename: String
+  html: GraphQLJSON
+  id: Int
+  img: String
+  projectId: String
+  sort: Int
+  title: String
+  updatedAt: Date
+}
+
+type TildaProject {
+  createdAt: Date
+  css: [String]
+  descr: String
+  externalId: String
+  id: Int
+  js: [String]
+  title: String
+  updatedAt: Date
+}
+
+enum TildaType {
+  TILDA_JOB_TYPE_UPSERT_PAGE
+  TILDA_JOB_TYPE_UPSERT_PAGES
+  TILDA_JOB_TYPE_UPSERT_PROJECT
+  TILDA_JOB_TYPE_UPSERT_PROJECTS
+}
+
+# Time custom scalar type
+scalar Time
+
+type Timezone {
+  label: String
+  name: String
+  tzCode: String
+  utc: String
+}
+
+type Token {
+  token: String
+}
+
+enum TokenType {
+  TOKEN_TYPE_ACCESS
+  TOKEN_TYPE_AUTO_GENERATED_ACCESS
+  TOKEN_TYPE_FORGOT
+  TOKEN_TYPE_REMEMBER_ME
+  TOKEN_TYPE_VERIFY_EMAIL
+}
+
+type Transaction {
+  Order: Order
+  actualAmount: Int
+  actualCurrency: String
+  amount: Int
+  createdAt: Date
+  dateOfStatusChange: Date
+  fee: Int
+  id: Int
+  status: TransactionStatus
+}
+
+type TransactionResponse {
+  Pagination: Pagination
+  Transactions: [Transaction]
+}
+
+enum TransactionStatus {
+  TRANSACTION_STATUS_APPROVED
+  TRANSACTION_STATUS_CREATED
+  TRANSACTION_STATUS_DECLINED
+  TRANSACTION_STATUS_DUPLICATE
+  TRANSACTION_STATUS_EXPIRED
+  TRANSACTION_STATUS_GIFT
+  TRANSACTION_STATUS_IN_REVERSE_PROCESS
+  TRANSACTION_STATUS_PENDING
+  TRANSACTION_STATUS_PROCESS
+  TRANSACTION_STATUS_PURCHASE
+  TRANSACTION_STATUS_REVERSE
+  TRANSACTION_STATUS_REVERSED
+}
+
+input TransactionsFilterInput {
+  createdAt: DateRange
+}
+
+enum Transport {
+  TRANSPORT_EMAIL
+}
+
+scalar Upload
+
+type User {
+  City: City
+  Country: Country
+  Currency: Currency
+  Gender: UserGender
+  Language: Language
+  Region: Region
+  Role: Role
+  avatar: [Media]
+  birthDate: Date
+  completedLessons: Int
+  createdAt: Date
+  deletedAt: Date
+  email: String
+  fullName: String
+  giftsReceived: Int
+  hadSubscriptionBefore: Boolean
+  id: String
+  isResident: Boolean
+  lastActiveDate: Date
+  monthsFromRegistration: Int
+  phone: String
+  timezone: String
+}
+
+enum UserField {
+  USER_FIELD_BIRTHDATE
+  USER_FIELD_EMAIL
+  USER_FIELD_FULL_NAME
+  USER_FIELD_GENDER
+  USER_FIELD_IS_RESIDENT
+  USER_FIELD_PHONE
+  USER_FIELD_TIMEZONE
+}
+
+enum UserGender {
+  USER_GENDER_FEMALE
+  USER_GENDER_MALE
+  USER_GENDER_NOT_SELECT
+}
+
+enum UserHomeworkStatus {
+  USER_HOMEWORK_STATUS_DONE
+  USER_HOMEWORK_STATUS_NOT_STARTED
+  USER_HOMEWORK_STATUS_REVIEW
+  USER_HOMEWORK_STATUS_STARTED
+}
+
+input UserRegistrationData {
+  avatar: String
+  birthDate: Date
+  currencyId: Int
+  email: String!
+  fullName: String!
+  isResident: Boolean
+  password: String!
+  phone: String!
+  primaryLanguageId: Int
+  timezone: String
+}
+
+type UserSubscription {
+  Merchant: Merchant
+  Plan: Plan
+  Tariff: Tariff
+  activationsLeft: Int
+  activationsUsed: Int
+  activeEndDate: Date
+  id: String
+  isTrial: Boolean
+  lastPaymentDate: Date
+  maxActivated: Int
+  pastDueEndDate: Date
+  price: Int
+  renew: Boolean
+  startFromTrial: Boolean
+  status: SubscriptionStatus
+  stopReason: SubscriptionStopReason
+}
+
+type UserVideoMark {
+  id: Int
+  text: String
+  timing: Time
+  userId: String
+  videoId: String
+}
+
+input UserVideoMarkCreateInput {
+  text: String!
+  timing: Time!
+  videoId: String!
+}
+
+input UserVideoMarkUpdateInput {
+  id: Int!
+  text: String!
+}
+
+input UserVideoMarksFilterInput {
+  videoId: String
+}
+
+type UserVideoMarksResponse {
+  Pagination: Pagination
+  UserVideoMarks: [UserVideoMark]
+}
+
+type VideoFile {
+  path: String
+  resolution: VideoResolution
+}
+
+enum VideoResolution {
+  VIDEO_RESOLUTION_360
+  VIDEO_RESOLUTION_720
+  VIDEO_RESOLUTION_1080
+}
+
+type WebinarsResponse {
+  Documents: [Document]
+  Pagination: Pagination
+}
+
+type directoriesResponse {
+  Currencies: [Currency]
+  Enums: Enums
+  Languages: [Language]
+  Settings: Settings
+  Timezones: [Timezone]
+}
+
+type enumPoint {
+  value: String
+}
+
+input orderPaySavedCardInput {
+  cardId: String!
+  orderId: String!
+}

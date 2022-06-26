@@ -1,0 +1,9 @@
+export {default as CourseDetailsCarousel} from './CourseDetailsCarousel';
+export {default as CourseDetailsCard} from './CourseDetailsCard';
+export {default as CourseCard} from './Card';
+export {default as CourseTagCard} from './CourseTagCard';
+export {default as CourseGiftsCarousel} from './gifts/CourseGiftsCarousel';
+export {default as CourseGiftCard} from './gifts/CourseGiftCard';
+export {default as CourseProgressLabel} from './CourseProgressLabel';
+export {default as CourseStructureItem} from './CourseStructureItem';
+export {default as CourseSidebar} from './CourseSidebar';

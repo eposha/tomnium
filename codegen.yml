@@ -1,0 +1,12 @@
+schema: https://api.front.dev.lwi.lab325.com/graphql
+generates:
+  ./src/graphql.schema.ts:
+    plugins:
+      - typescript
+    config:
+      maybeValue: T | undefined
+  schema.graphql:
+    plugins:
+      - schema-ast
+    config:
+      commentDescriptions: true

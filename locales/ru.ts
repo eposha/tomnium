@@ -1,0 +1,35 @@
+export const ru = {
+  header: {
+    center: 'Центр',
+    learning: 'Обучение',
+    courses: 'Курсы',
+    diagnostic: 'Диагностика',
+    chats: 'Чаты',
+    consultations: 'Консультации',
+    document: 'Бесплатно',
+    search: 'Поиск',
+  },
+  profile: {
+    myProfile: 'Мой профиль',
+    photo: 'Ваше фото',
+    names: 'ФИО',
+    mobile: 'Номер телефона',
+    country: 'Страна',
+    language: 'Язык',
+    timezone: 'Часовой пояс',
+    gender: 'Пол',
+    birthday: 'День рождения',
+    city: 'Город',
+    currency: 'Валюта',
+    edit: 'Редактировать',
+    save: 'Сохранить',
+    load: 'Загрузить',
+    logout: 'Выйти',
+  },
+
+  footer: {
+    publicOffer: 'Публичная оферта',
+    termsOfUse: 'Пользовательское соглашение',
+    privacyPolicy: 'Политика конфиденциальности',
+  },
+};

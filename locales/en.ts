@@ -1,0 +1,35 @@
+export const en = {
+  header: {
+    center: 'Center',
+    learning: 'Learning',
+    courses: 'Courses',
+    diagnostic: 'Diagnostic',
+    chats: 'Chats',
+    consultations: 'Consultations',
+    document: 'Free',
+    search: 'Search',
+  },
+  profile: {
+    myProfile: 'My profile',
+    photo: 'Your photo',
+    names: 'Full name',
+    mobile: 'Mobile number',
+    country: 'Country',
+    language: 'Language',
+    timezone: 'Timezone',
+    gender: 'Gender',
+    birthday: 'Birthday',
+    city: 'City',
+    currency: 'Currency',
+    edit: 'Edit',
+    save: 'Save',
+    load: 'Upload',
+    logout: 'Log out',
+  },
+
+  footer: {
+    publicOffer: 'Public offer',
+    termsOfUse: 'Terms of use',
+    privacyPolicy: 'Privacy Policy',
+  },
+};

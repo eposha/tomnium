@@ -1,0 +1,40 @@
+@font-face {
+  font-family: 'Gilroy-Regular';
+  src: url('/fonts/Gilroy-Regular.ttf');
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'Gilroy-RegularItalic';
+  src: url('/fonts/Gilroy-RegularItalic.ttf');
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'Gilroy-Medium';
+  src: url('/fonts/Gilroy-Medium.ttf');
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'Gilroy-Bold';
+  src: url('/fonts/Gilroy-Bold.ttf');
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'Gilroy-Semibold';
+  src: url('/fonts/Gilroy-Semibold.ttf');
+  font-display: swap;
+}
+
+/* Using this inherit reset method means you can use content-box or padding-box without a universal selector overriding your CSS */
+HTML,
+body {
+  margin: 0px;
+  padding: 0px;
+  border: 0px;
+  font-family: 'Gilroy-Regular', sans-serif;
+  background: #f4f6fa;
+  overflow-x: hidden;
+}

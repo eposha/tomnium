@@ -1,0 +1,35 @@
+export const uk = {
+  header: {
+    center: 'Центр',
+    learning: 'Навчання',
+    courses: 'Курси',
+    diagnostic: 'Діагностика',
+    chats: 'Чати',
+    consultations: 'Консультації',
+    document: 'Безкоштовно',
+    search: 'Пошук',
+  },
+  profile: {
+    myProfile: 'Мій профіль',
+    photo: 'Ваше фото',
+    names: 'ПІБ',
+    mobile: 'Номер телефону',
+    country: 'Страна',
+    language: 'Країна',
+    timezone: 'Часовий пояс',
+    gender: 'Стать',
+    birthday: 'День народження',
+    city: 'Місто',
+    currency: 'Валюта',
+    edit: 'Редагувати',
+    save: 'Зберегти',
+    load: 'Завантажити',
+    logout: 'Вийти',
+  },
+
+  footer: {
+    publicOffer: 'Публічна оферта',
+    termsOfUse: 'Угода користувача',
+    privacyPolicy: 'Політика конфіденційності',
+  },
+};
